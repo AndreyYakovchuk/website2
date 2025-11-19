@@ -32,7 +32,7 @@ body {
 /* -------------------- HEADER & HERO -------------------- */
 .hero {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('cs2_background.jpg') no-repeat center center/cover;
-    height: 550px;
+    height: 350px;
     display: flex;
     align-items: center;
     text-align: center;
@@ -107,6 +107,22 @@ body {
     border-left: 4px solid var(--primary-color);
     padding-left: 15px;
 }
+/* Стиль для нового підзаголовка ліги */
+.league-title {
+    font-size: 1.6em;
+    color: #fff;
+    margin-bottom: 5px;
+    border-left: none;
+    padding-left: 0;
+}
+.subsection-title {
+    color: var(--primary-color);
+    text-transform: uppercase;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
 
 /* Горизонтальна лінія */
 hr {
@@ -114,6 +130,11 @@ hr {
     height: 1px;
     background-color: #444;
     margin: 40px 0;
+}
+.short-hr {
+    width: 50%;
+    margin: 30px auto;
+    background-color: #3a3a3a;
 }
 
 /* Сітка статистики */
@@ -139,6 +160,54 @@ hr {
     display: block;
     margin-bottom: 5px;
 }
+
+/* Секція "Чому варто приєднатися" */
+.why-join-list {
+    list-style: none;
+    padding-left: 0;
+}
+.why-join-list li {
+    background-color: #333;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-left: 3px solid #009688; /* Зелений колір переваги */
+    border-radius: 4px;
+}
+
+/* Стилі для посилань на стрім */
+.stream-link {
+    color: #4CAF50; /* Зелений колір стріму */
+    text-decoration: none;
+    word-break: break-all;
+}
+.stream-link:hover {
+    text-decoration: underline;
+    color: #66BB6A;
+}
+/* Стиль для плейсхолдерів посилань */
+.stream-placeholder {
+    color: #ccc; 
+    font-style: italic;
+    text-decoration: none;
+}
+
+
+/* Стилі для заклику до дії */
+.cta-text {
+    font-size: 1.2em;
+    text-align: center;
+    padding: 10px 0;
+    font-style: italic;
+    color: #ccc;
+}
+.cta-action {
+    font-size: 1.4em;
+    text-align: center;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-top: 15px;
+}
+
 
 /* ********** СТИЛІ ДЛЯ ЛІДЕРБОРДУ (ТАБЛИЦІ) ********** */
 
@@ -261,7 +330,7 @@ hr {
     padding: 30px 10px;
     background-color: #222;
     border-radius: 8px;
-    overflow-x: auto;
+    overflow-x: auto; /* Дозволяє горизонтальний скрол на мобільних */
 }
 
 /* Загальні стилі раунду */
@@ -277,8 +346,8 @@ hr {
 
 .round-title {
     color: var(--primary-color);
-    margin-bottom: 25px;
     text-transform: uppercase;
+    margin-bottom: 25px;
     font-size: 1.1em;
     position: absolute;
     top: 0;
@@ -477,4 +546,74 @@ footer {
     padding: 20px 0;
     font-size: 0.9em;
     margin-top: 50px;
+}
+
+/* ======================================= */
+/* ====== МОБІЛЬНА ОПТИМІЗАЦІЯ (< 600px) ====== */
+/* ======================================= */
+@media (max-width: 600px) {
+    
+    .hero {
+        height: 250px;
+    }
+    
+    .hero h1 {
+        font-size: 2.2em;
+        letter-spacing: 2px;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .navbar {
+        padding: 10px 0;
+    }
+    
+    .navbar ul {
+        flex-direction: column; /* Навігація в один стовпець */
+        align-items: center;
+    }
+    
+    .navbar li {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .navbar a {
+        display: block;
+        padding: 5px 0;
+        border-bottom: 1px solid #3a3a3a;
+    }
+    
+    .btn-register {
+        margin-top: 5px;
+        padding: 10px 0 !important;
+        border-bottom: none !important;
+    }
+    
+    .section {
+        padding: 30px 0;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr; /* Сітка статистики в один стовпець */
+    }
+    
+    .reg-box {
+        grid-template-columns: 1fr; /* Сітка реєстрації в один стовпець */
+        gap: 30px;
+    }
+    
+    .leaderboard-table th, .leaderboard-table td {
+        padding: 10px 8px; /* Зменшуємо відступи в таблиці */
+        font-size: 0.85em;
+    }
+    
+    /* Додаткові налаштування для таблиці, щоб вмістити контент */
+    .leaderboard-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 }
