@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Турнір CS2 - Таблиця</title>
+    <title>Турнір CS2 - Команди</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="hero">
         <div class="container">
-
+            <div class="uni-support">За підтримки Херсонського державного університету</div>
+            <h1>CS2 LEGACY CUP</h1>
+            <p>Призовий фонд: --- | Реєстрація відкрита!</p>
         </div>
     </header>
 
@@ -20,91 +23,61 @@
                 <li><a href="teams.html">Команди</a></li>
                 <li><a href="rules.html">Правила</a></li>
                 <li><a href="schedule.html">Сітка / Розклад</a></li>
-                <li><a href="leaderboard.html">ТАБЛИЦЯ</a></li> 
+                <li><a href="leaderboard.html">ТАБЛИЦЯ</a></li>
                 <li><a href="register.html" class="btn-register">РЕЄСТРАЦІЯ</a></li>
             </ul>
         </div>
     </nav>
 
     <main class="container">
-        <section id="leaderboard" class="section">
-            <h2>🏆 Фінальний Рейтинг та Призи</h2>
+        <section id="teams" class="section">
+            <h2>Учасники Турніру (0/32 Слоти Зайнято)</h2>
             
-            <table class="leaderboard-table">
-                <thead>
-                    <tr>
-                        <th>Місце</th>
-                        <th>Команда</th>
-                        <th>Приз ($)</th>
-                        <th>W/L</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="rank-1">
-                        <td>1</td>
-                        <td>Team WINNER (TIF)</td>
-                        <td>---</td>
-                        <td>5/0</td>
-                    </tr>
-                    <tr class="rank-2">
-                        <td>2</td>
-                        <td>Team RunnerUp (RBL)</td>
-                        <td>---</td>
-                        <td>4/1</td>
-                    </tr>
-                    <tr class="rank-3">
-                        <td>3-4</td>
-                        <td>Team SemiFinalist A</td>
-                        <td>---</td>
-                        <td>3/1</td>
-                    </tr>
-                    <tr class="rank-4">
-                        <td>3-4</td>
-                        <td>Team SemiFinalist B</td>
-                        <td>---</td>
-                        <td>3/1</td>
-                    </tr>
-                    <tr class="rank-5">
-                        <td>5-8</td>
-                        <td>Team QuarterFinalist 1</td>
-                        <td>-</td>
-                        <td>2/1</td>
-                    </tr>
-                    <tr class="rank-6">
-                        <td>5-8</td>
-                        <td>Team QuarterFinalist 2</td>
-                        <td>-</td>
-                        <td>2/1</td>
-                    </tr>
-                    <tr class="rank-7">
-                        <td>5-8</td>
-                        <td>Team QuarterFinalist 3</td>
-                        <td>-</td>
-                        <td>2/1</td>
-                    </tr>
-                    <tr class="rank-8">
-                        <td>5-8</td>
-                        <td>Team QuarterFinalist 4</td>
-                        <td>-</td>
-                        <td>2/1</td>
-                    </tr>
-                    <tr>
-                        <td>9-32</td>
-                        <td>Інші команди...</td>
-                        <td>-</td>
-                        <td>0-1/1-1</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <p class="table-note">Інформація про призовий фонд очікується. Турнір орієнтований на розвиток та досвід.</p>
+            <div class="teams-grid" id="teamsContainer">
+                </div>
 
+            <script>
+                const container = document.getElementById('teamsContainer');
+                const totalSlots = 32;
+                
+                // Пример уже зарегистрированных команд (можно оставить массив пустым, если никого нет)
+                // Формат: { name: 'Название', tag: 'TAG' }
+                const registeredTeams = [
+                    // { name: 'NaVi Junior', tag: 'NAVI' }, 
+                    // { name: 'Team Spirit', tag: 'TS' }
+                ];
+
+                for (let i = 1; i <= totalSlots; i++) {
+                    let team = registeredTeams[i-1];
+                    let isTaken = team !== undefined;
+                    
+                    let num = i < 10 ? '0' + i : i;
+                    
+                    let html = `
+                        <div class="magic-card ${isTaken ? '' : 'empty'}">
+                            <span class="slot-number">#${num}</span>
+                            
+                            <div class="team-info">
+                                ${isTaken 
+                                    ? `<span class="team-tag">[${team.tag}]</span><span class="team-name">${team.name}</span>`
+                                    : `<span class="team-tag" style="color: #666;">---</span><span class="team-name" style="color: #888;">Вільний слот</span>`
+                                }
+                            </div>
+
+                            <div class="status-badge ${isTaken ? 'status-busy' : 'status-free'}">
+                                ${isTaken ? 'ЗАЙНЯТО' : 'ВІЛЬНО'}
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += html;
+                }
+            </script>
         </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 CS2 LEGACY CUP. Всі права захищені.</p>
+            <p>&copy; 2025 CS2 LEGACY CUP. За підтримки Херсонського державного університету. Всі права захищені.</p>
         </div>
     </footer>
 </body>
