@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Турнір CS2 - Реєстрація</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="hero">
         <div class="container">
-
+            <div class="uni-support">За підтримки Херсонського державного університету</div>
+            <h1>CS2 LEGACY CUP</h1>
+            <p>Призовий фонд: --- | Реєстрація відкрита!</p>
         </div>
     </header>
 
@@ -21,51 +25,72 @@
                 <li><a href="rules.html">Правила</a></li>
                 <li><a href="schedule.html">Сітка / Розклад</a></li>
                 <li><a href="leaderboard.html">ТАБЛИЦЯ</a></li>
-                <li><a href="register.html" class="btn-register">РЕЄСТРАЦІЯ</a></li>
+                <li><a href="register.html" class="active btn-register">РЕЄСТРАЦІЯ</a></li>
             </ul>
         </div>
     </nav>
 
     <main class="container">
         <section id="register" class="section telegram-registration">
-            <h2>🎯 Реєстрація команди</h2>
+            <h2 style="text-align: center; margin-bottom: 40px;">🎯 ПРИЄДНУЙСЯ ДО БИТВИ</h2>
             
-            <div class="reg-box">
+            <div class="reg-layout">
                 
-                <div class="reg-rules">
-                    <h3>Обов'язкові вимоги до реєстрації:</h3>
-                    <ul>
-                        <li><p>Команда має складатися з <strong>5 основних гравців</strong> + 1 запасний (за бажанням).</p></li>
-                        <li><p>Усі гравці повинні мати чинні <strong>Steam ID</strong>.</p></li>
-                        <li><p>Назва та тег команди не повинні порушувати етичні норми.</p></li>
-                        <li><p>Усі гравці команди повинні приєднатися до нашого <strong>Discord-сервера</strong>.</p></li>
-                        <li><p>Усі гравці повинні бути готові до <strong>check-in</strong> за 30 хвилин до початку турніру.</p></li>
-                    </ul>
-                    <a href="https://discord.gg/SCQYw8Kfzg" target="_blank" class="btn-discord">
-                        ПРИЄДНАТИСЯ ДО DISCORD СЕРВЕРА
-                    </a>
+                <div class="reg-steps">
+                    <h3 class="reg-subtitle"><i class="fa-solid fa-list-check"></i> ВИМОГИ ДО КОМАНДИ</h3>
+                    
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="step-info">
+                            <h4>СКЛАД</h4>
+                            <p>5 основних гравців + 1 запасний (опціонально).</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fa-brands fa-steam"></i></div>
+                        <div class="step-info">
+                            <h4>STEAM ID</h4>
+                            <p>Всі гравці повинні мати відкриті профілі та чистий статус.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fa-brands fa-discord"></i></div>
+                        <div class="step-info">
+                            <h4>DISCORD</h4>
+                            <p>Вхід на сервер обов'язковий для комунікації.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div class="step-info">
+                            <h4>CHECK-IN</h4>
+                            <p>Бути готовим за 30 хвилин до початку матчу.</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="reg-telegram">
-                    <h3>📩 Як зареєструватися?</h3>
-                    <p>Щоб подати заявку, капітан команди повинен надіслати <strong>одне повідомлення</strong> в Telegram-чат організатора.</p>
+                <div class="reg-actions">
+                    <div class="action-box">
+                        <h3><i class="fa-solid fa-file-pen"></i> ПОДАТИ ЗАЯВКУ</h3>
+                        <p>Реєстрація проходить через Google Форму. Адміністратор зв'яжеться з капітаном після перевірки даних.</p>
+                        
+                        <a href="ВАШЕ_ПОСИЛАННЯ_НА_GOOGLE_FORM" target="_blank" class="btn-google-pulse">
+                            <i class="fa-brands fa-google"></i> ЗАПОВНИТИ ФОРМУ
+                        </a>
 
-                    <div class="reg-template">
-                        <h4>Шаблон повідомлення:</h4>
-                        <pre>
-<strong>НАЗВА КОМАНДИ</strong>: Team Inferno
-<strong>ТЕГ КОМАНДИ</strong>: [TIF]
-<strong>КАПІТАН</strong>: @captain_telegram (Посилання на Steam ID)
-<strong>ІГРОК 2</strong>: @player2_tg (Посилання на Steam ID)
-<strong>ІГРОК 3</strong>: @player3_tg (Посилання на Steam ID)
-<strong>ІГРОК 4</strong>: @player4_tg (Посилання на Steam ID)
-<strong>ІГРОК 5</strong>: @player5_tg (Посилання на Steam ID)
-                        </pre>
+                        <div class="divider"><span>АБО</span></div>
+
+                        <a href="ВАШЕ_ПОСИЛАННЯ_НА_DISCORD" target="_blank" class="btn-discord-block">
+                            <i class="fa-brands fa-discord"></i> ПРИЄДНАТИСЯ ДО DISCORD
+                        </a>
+                        
+                        <p class="warning-note">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Переконайтеся, що у вас є посилання на профілі всіх гравців перед заповненням.
+                        </p>
                     </div>
-                    
-                    <a href="https://t.me/RichAloneA" target="_blank" class="btn-submit">
-                        ПЕРЕЙТИ В TELEGRAM ДЛЯ РЕЄСТРАЦІЇ
-                    </a>
                 </div>
             </div>
 
@@ -74,7 +99,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 CS2 LEGACY CUP. Всі права захищені.</p>
+            <p>&copy; 2025 CS2 LEGACY CUP. За підтримки Херсонського державного університету. Всі права захищені.</p>
         </div>
     </footer>
 </body>
