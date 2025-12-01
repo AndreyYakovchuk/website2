@@ -4,9 +4,9 @@
 :root {
     --primary: #ff4500; /* Неоновий оранжевий */
     --primary-glow: rgba(255, 69, 0, 0.6);
-    --secondary: #00d4ff; /* Неоновий блакитний для акцентів */
+    --secondary: #00d4ff; /* Неоновий блакитний */
     --bg-dark: #050505;
-    --bg-panel: rgba(20, 20, 20, 0.6);
+    --bg-panel: rgba(20, 20, 20, 0.8);
     --text-main: #ffffff;
     --text-muted: #aaaaaa;
     --border: 1px solid rgba(255, 69, 0, 0.3);
@@ -14,7 +14,7 @@
     --font-head: 'Orbitron', sans-serif;
     --font-body: 'Rajdhani', sans-serif;
     --discord-color: #5865F2;
-    --google-color: #4285F4; /* Колір Google */
+    --google-color: #4285F4;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,7 +25,7 @@ body {
     color: var(--text-main);
     line-height: 1.6;
 
-    /* === CSS ФОН (КІБЕРПАНК СІТКА) === */
+    /* === КІБЕРПАНК ФОН (БЕЗ КАРТИНКИ) === */
     background-image: 
         linear-gradient(rgba(255, 69, 0, 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 69, 0, 0.05) 1px, transparent 1px),
@@ -49,7 +49,7 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.9);
     backdrop-filter: var(--glass);
     border-bottom: 1px solid var(--primary);
     padding: 15px 0;
@@ -81,7 +81,6 @@ nav a:hover, nav a.active {
     text-shadow: 0 0 10px var(--primary-glow);
 }
 
-/* Кнопка реєстрації в меню */
 .btn-register {
     border: 1px solid var(--primary);
     padding: 8px 20px;
@@ -105,6 +104,7 @@ nav a:hover, nav a.active {
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* Напис про університет (Неоновий, без рамки) */
 .uni-support {
     font-family: var(--font-head);
     color: var(--primary);
@@ -130,7 +130,7 @@ nav a:hover, nav a.active {
 }
 
 /* ========================================= */
-/* 5. ОСНОВНІ БЛОКИ І КОНТЕЙНЕРИ */
+/* 5. ЗАГАЛЬНІ КОНТЕЙНЕРИ */
 /* ========================================= */
 .container {
     max-width: 1200px;
@@ -163,7 +163,7 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
 .short-hr { width: 50%; margin: 30px auto; background: #3a3a3a; }
 
 /* ========================================= */
-/* 6. НОВИЙ БЛОК КОМАНД (ПЕРЕЛИВАННЯ) */
+/* 6. КОМАНДИ (МАГІЧНІ КАРТКИ) */
 /* ========================================= */
 .teams-grid {
     display: grid;
@@ -187,20 +187,12 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
 
+/* Анімація переливання */
 .magic-card::before {
     content: '';
     position: absolute;
     top: -50%; left: -50%; width: 200%; height: 200%;
-    background: conic-gradient(
-        from 0deg, 
-        transparent 0deg, 
-        var(--primary) 60deg, 
-        transparent 120deg, 
-        var(--secondary) 180deg, 
-        transparent 240deg, 
-        #ff0055 300deg, 
-        transparent 360deg
-    );
+    background: conic-gradient(from 0deg, transparent 0deg, var(--primary) 60deg, transparent 120deg, var(--secondary) 180deg, transparent 240deg, #ff0055 300deg, transparent 360deg);
     animation: rotate-border 4s linear infinite;
     z-index: -2;
 }
@@ -230,12 +222,132 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
 .status-free { background: rgba(0, 255, 136, 0.1); color: #00ff88; border: 1px solid #00ff88; }
 .status-busy { background: rgba(255, 69, 0, 0.1); color: var(--primary); border: 1px solid var(--primary); }
 
-@keyframes rotate-border {
-    0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); }
-}
+@keyframes rotate-border { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
 /* ========================================= */
-/* 7. ІНШІ ЕЛЕМЕНТИ (СТАТИСТИКА, СПИСКИ) */
+/* 7. ТУРНІРНА СІТКА (З ЛІНІЯМИ) */
+/* ========================================= */
+.bracket-scroll {
+    overflow-x: auto;
+    padding: 20px 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) #111;
+}
+
+.bracket-container {
+    display: flex;
+    justify-content: flex-start;
+    min-width: 900px;
+    padding: 0 20px;
+}
+
+.round {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 250px;
+    margin-right: 60px;
+    position: relative;
+}
+
+.round-header {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 20px;
+    position: absolute;
+    top: -40px;
+    width: 100%;
+}
+
+.match-pair {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.match-card {
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid var(--primary);
+    border-radius: 6px;
+    padding: 10px 15px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.match-card:hover { transform: scale(1.05); border-color: var(--primary); box-shadow: 0 0 20px rgba(255, 69, 0, 0.2); z-index: 10; }
+
+.match-card .team { display: flex; justify-content: space-between; padding: 5px 0; font-size: 0.95em; font-weight: 600; }
+.match-card .team:first-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
+.winner span { color: #00ff88; text-shadow: 0 0 5px #00ff88; }
+.loser span { color: #555; }
+.score { font-family: monospace; }
+
+/* ЛІНІЇ СІТКИ */
+.round-1 .match-pair { position: relative; }
+.round-1 .match-pair::after { /* Вертикальна дужка */
+    content: ''; position: absolute; top: 25%; bottom: 25%; right: -30px; width: 2px; background: #444;
+}
+.round-1 .match-card::after { /* Горизонтальна лінія від матчу */
+    content: ''; position: absolute; top: 50%; right: -30px; width: 30px; height: 2px; background: #444;
+}
+.round-1 .match-pair::before { /* Лінія до наступного раунду */
+    content: ''; position: absolute; top: 50%; right: -60px; width: 30px; height: 2px; background: #444;
+}
+.round-2 .match-card::after { /* Лінія півфіналу */
+    content: ''; position: absolute; top: 50%; right: -60px; width: 60px; height: 2px; background: #444; z-index: -1;
+}
+
+.match-card:hover::after, .match-pair:hover::after, .match-pair:hover::before {
+    background: var(--primary); box-shadow: 0 0 10px var(--primary); transition: 0.3s;
+}
+
+.final-match { border-color: gold; box-shadow: 0 0 30px rgba(255, 215, 0, 0.1); }
+.gold { color: gold !important; }
+
+/* ========================================= */
+/* 8. РЕЄСТРАЦІЯ (КАРТКИ І КНОПКИ) */
+/* ========================================= */
+.reg-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+.reg-subtitle { color: var(--primary); margin-bottom: 25px; font-size: 1.4em; border-bottom: 1px solid rgba(255, 69, 0, 0.3); padding-bottom: 10px; }
+
+.step-card {
+    display: flex; align-items: center; background: rgba(30, 30, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px;
+    padding: 15px; margin-bottom: 15px; transition: 0.3s;
+}
+.step-card:hover { background: rgba(40, 40, 40, 0.9); border-color: var(--primary); transform: translateX(10px); }
+.step-icon { font-size: 1.8em; color: var(--primary); margin-right: 20px; width: 50px; text-align: center; }
+.step-info h4 { margin-bottom: 5px; color: #fff; font-size: 1.1em; }
+.step-info p { font-size: 0.9em; color: var(--text-muted); margin: 0; }
+
+.action-box { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--primary); padding: 30px; border-radius: 10px; text-align: center; position: relative; overflow: hidden; }
+.action-box::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255, 69, 0, 0.1) 0%, transparent 70%); z-index: -1; }
+
+.btn-google-pulse {
+    display: block; width: 100%; padding: 18px; background: linear-gradient(45deg, #FF4500, #FF8C00);
+    color: white; font-weight: 900; font-size: 1.2em; text-transform: uppercase; text-decoration: none;
+    border-radius: 6px; margin: 20px 0; position: relative; transition: 0.3s;
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.4); animation: pulse-orange 2s infinite;
+}
+.btn-google-pulse:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(255, 69, 0, 0.8); }
+
+@keyframes pulse-orange { 0% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 69, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0); } }
+
+.divider { display: flex; align-items: center; text-align: center; color: #666; margin: 20px 0; }
+.divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #444; }
+.divider span { padding: 0 10px; font-size: 0.9em; font-weight: bold; }
+
+.btn-discord-block { display: block; width: 100%; padding: 15px; background: #5865F2; color: white; font-weight: 700; text-decoration: none; border-radius: 6px; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+.btn-discord-block:hover { background: #4752c4; box-shadow: 0 0 15px rgba(88, 101, 242, 0.5); }
+
+/* ========================================= */
+/* 9. ІНШІ СТИЛІ (ТАБЛИЦЯ, СТАТИСТИКА) */
 /* ========================================= */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
 .stats-grid div { background: #333; padding: 20px; border-radius: 5px; border-left: 3px solid var(--primary); }
@@ -246,9 +358,6 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
 .stream-placeholder { color: #ccc; font-style: italic; }
 .cta-action { font-size: 1.4em; text-align: center; color: var(--primary); font-weight: bold; margin-top: 15px; }
 
-/* ========================================= */
-/* 8. ТАБЛИЦЯ (LEADERBOARD) */
-/* ========================================= */
 .leaderboard-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
 .leaderboard-table th, .leaderboard-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left;}
 .leaderboard-table th { color: var(--primary); }
@@ -256,218 +365,16 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
 .table-note { margin-top: 20px; font-size: 0.95em; color: #aaa; text-align: center; }
 
 /* ========================================= */
-/* 9. РЕЄСТРАЦІЯ */
-/* ========================================= */
-.reg-box { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.reg-rules li { background: #333; padding: 10px; margin-bottom: 10px; border-left: 3px solid #00afff; }
-
-/* Кнопка Google Forms (така ж, як і раніше submit, але колір можна змінити) */
-.btn-submit { 
-    display: block; 
-    width: 100%; 
-    padding: 15px; 
-    background: var(--google-color); /* Синій колір Google */
-    color: white; 
-    border: none; 
-    font-weight: bold; 
-    text-align: center; 
-    margin-top: 10px; 
-    cursor: pointer; 
-    border-radius: 4px;
-    text-decoration: none;
-}
-.btn-submit:hover { background: #357ae8; box-shadow: 0 0 15px rgba(66, 133, 244, 0.6); }
-
-.btn-discord { display: block; width: 100%; padding: 15px; background: var(--discord-color); color: white; border: none; font-weight: bold; text-align: center; margin-top: 20px; text-decoration: none; border-radius: 4px;}
-.btn-discord:hover { background: #7289DA; }
-
-.warning-note { text-align: center; color: #ffaa00; margin-top: 10px; font-size: 0.9em; }
-
-/* ========================================= */
-/* 10. ТУРНІРНА СІТКА (BRACKET) */
-/* ========================================= */
-.bracket-wrapper { display: flex; justify-content: space-between; overflow-x: auto; padding: 20px 0; }
-.round { display: flex; flex-direction: column; align-items: center; margin: 0 20px; min-width: 250px; }
-.round-title { color: var(--primary); margin-bottom: 20px; text-align: center; }
-.match-pair { width: 100%; display: flex; flex-direction: column; align-items: center; }
-.match { background: #333; width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #444; }
-.team { display: flex; justify-content: space-between; padding: 5px; border-bottom: 1px solid #444; }
-.team:last-child { border-bottom: none; }
-
-.round-1 .match-pair { margin-bottom: 40px; }
-.round-2 { padding-top: 50px; } .round-2 .match-pair { margin-bottom: 100px; }
-.round-3 { padding-top: 150px; }
-
-/* ========================================= */
-/* 11. ФУТЕР ТА АНІМАЦІЇ */
+/* 10. ФУТЕР І МОБІЛЬНА ВЕРСІЯ */
 /* ========================================= */
 footer { text-align: center; padding: 20px 0; color: #888; font-size: 0.9em; border-top: 1px solid #333; margin-top: 50px;}
 
-@keyframes glitch {
-    0% { transform: skew(0deg); } 20% { transform: skew(-2deg); } 40% { transform: skew(2deg); }
-    60% { transform: skew(-1deg); } 80% { transform: skew(3deg); } 100% { transform: skew(0deg); }
-}
+@keyframes glitch { 0% { transform: skew(0deg); } 20% { transform: skew(-2deg); } 40% { transform: skew(2deg); } 60% { transform: skew(-1deg); } 80% { transform: skew(3deg); } 100% { transform: skew(0deg); } }
 
-/* ========================================= */
-/* 12. МОБІЛЬНА АДАПТАЦІЯ */
-/* ========================================= */
-@media (max-width: 600px) {
-    .hero h1 { font-size: 2.2em; }
-    .reg-box, .stats-grid { grid-template-columns: 1fr; }
-    nav ul { flex-direction: column; }
-    .teams-grid { grid-template-columns: 1fr; }
-    .bracket-wrapper { justify-content: flex-start; }
-}
-
-/* ========================================= */
-/* 13. НОВЫЙ ДИЗАЙН РЕГИСТРАЦИИ (BEAUTIFUL) */
-/* ========================================= */
-
-.reg-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    align-items: start;
-}
-
-.reg-subtitle {
-    color: var(--primary);
-    margin-bottom: 25px;
-    font-size: 1.4em;
-    border-bottom: 1px solid rgba(255, 69, 0, 0.3);
-    padding-bottom: 10px;
-}
-
-/* Карточки шагов (Требования) */
-.step-card {
-    display: flex;
-    align-items: center;
-    background: rgba(30, 30, 30, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    transition: 0.3s;
-}
-
-.step-card:hover {
-    background: rgba(40, 40, 40, 0.9);
-    border-color: var(--primary);
-    transform: translateX(10px); /* Сдвиг вправо при наведении */
-    box-shadow: -5px 5px 15px rgba(0,0,0,0.5);
-}
-
-.step-icon {
-    font-size: 1.8em;
-    color: var(--primary);
-    margin-right: 20px;
-    width: 50px;
-    text-align: center;
-    text-shadow: 0 0 10px var(--primary-glow);
-}
-
-.step-info h4 {
-    margin-bottom: 5px;
-    color: #fff;
-    font-size: 1.1em;
-}
-
-.step-info p {
-    font-size: 0.9em;
-    color: var(--text-muted);
-    line-height: 1.3;
-    margin: 0;
-}
-
-/* Правая колонка (Действия) */
-.action-box {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--primary);
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Эффект свечения фона */
-.action-box::before {
-    content: '';
-    position: absolute;
-    top: -50%; left: -50%; width: 200%; height: 200%;
-    background: radial-gradient(circle, rgba(255, 69, 0, 0.1) 0%, transparent 70%);
-    z-index: -1;
-}
-
-/* Пульсирующая кнопка Google */
-.btn-google-pulse {
-    display: block;
-    width: 100%;
-    padding: 18px;
-    background: linear-gradient(45deg, #FF4500, #FF8C00);
-    color: white;
-    font-weight: 900;
-    font-size: 1.2em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 6px;
-    margin: 20px 0;
-    position: relative;
-    overflow: hidden;
-    transition: 0.3s;
-    box-shadow: 0 0 20px rgba(255, 69, 0, 0.4);
-    animation: pulse-orange 2s infinite;
-}
-
-.btn-google-pulse:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 30px rgba(255, 69, 0, 0.8);
-}
-
-@keyframes pulse-orange {
-    0% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(255, 69, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0); }
-}
-
-/* Разделитель "АБО" */
-.divider {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    color: #666;
-    margin: 20px 0;
-}
-.divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid #444;
-}
-.divider span { padding: 0 10px; font-size: 0.9em; font-weight: bold; }
-
-/* Кнопка Discord (блочная) */
-.btn-discord-block {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    background: #5865F2;
-    color: white;
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: 0.3s;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.btn-discord-block:hover {
-    background: #4752c4;
-    box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
-}
-
-/* Мобильная адаптация для регистрации */
 @media (max-width: 768px) {
-    .reg-layout {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
+    .hero h1 { font-size: 2.2em; }
+    .reg-layout { grid-template-columns: 1fr; }
+    nav ul { flex-direction: column; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .bracket-container { min-width: 900px; }
 }
