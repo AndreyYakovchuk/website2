@@ -24,8 +24,9 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-main);
     line-height: 1.6;
+    overflow-x: hidden; /* Забороняє горизонтальний скрол сторінки */
 
-    /* === КІБЕРПАНК ФОН (БЕЗ КАРТИНКИ) === */
+    /* === КІБЕРПАНК ФОН === */
     background-image: 
         linear-gradient(rgba(255, 69, 0, 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 69, 0, 0.05) 1px, transparent 1px),
@@ -43,16 +44,17 @@ h1, h2, h3, h4 { font-family: var(--font-head); text-transform: uppercase; lette
 a { text-decoration: none; color: inherit; transition: 0.3s; }
 
 /* ========================================= */
-/* 3. НАВІГАЦІЯ */
+/* 3. НАВІГАЦІЯ (ВИПРАВЛЕНО) */
 /* ========================================= */
 nav {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.95);
     backdrop-filter: var(--glass);
     border-bottom: 1px solid var(--primary);
     padding: 15px 0;
+    width: 100%;
 }
 
 .nav-container {
@@ -60,20 +62,24 @@ nav {
     margin: 0 auto;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    width: 100%;
+    padding: 0 20px;
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    gap: 30px;
+    gap: 20px; /* Зменшили відступ, щоб влізло більше */
     align-items: center;
+    flex-wrap: wrap; /* ВАЖЛИВО: Дозволяє перенос кнопок на новий рядок на ПК */
+    justify-content: center;
 }
 
 nav a {
-    font-size: 1.1rem;
+    font-size: 1rem; /* Трохи компактніший шрифт */
     font-weight: 700;
     color: var(--text-main);
+    white-space: nowrap; /* Текст не розривається */
 }
 
 nav a:hover, nav a.active {
@@ -84,7 +90,9 @@ nav a:hover, nav a.active {
 .btn-register {
     border: 1px solid var(--primary);
     padding: 8px 20px;
-    color: var(--primary) !important;
+    color: var(--primary) !important; /* Примусовий колір тексту */
+    background: rgba(0,0,0,0.5); /* Темний фон для контрасту */
+    border-radius: 4px;
     transition: 0.3s;
 }
 
@@ -104,7 +112,6 @@ nav a:hover, nav a.active {
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Напис про університет (Неоновий, без рамки) */
 .uni-support {
     font-family: var(--font-head);
     color: var(--primary);
@@ -187,7 +194,6 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
 
-/* Анімація переливання */
 .magic-card::before {
     content: '';
     position: absolute;
@@ -198,12 +204,7 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
 }
 
 .magic-card::after {
-    content: '';
-    position: absolute;
-    inset: 2px;
-    background: #151515;
-    border-radius: 8px;
-    z-index: -1;
+    content: ''; position: absolute; inset: 2px; background: #151515; border-radius: 8px; z-index: -1;
 }
 
 .magic-card.empty::before {
@@ -288,20 +289,11 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
 .loser span { color: #555; }
 .score { font-family: monospace; }
 
-/* ЛІНІЇ СІТКИ */
 .round-1 .match-pair { position: relative; }
-.round-1 .match-pair::after { /* Вертикальна дужка */
-    content: ''; position: absolute; top: 25%; bottom: 25%; right: -30px; width: 2px; background: #444;
-}
-.round-1 .match-card::after { /* Горизонтальна лінія від матчу */
-    content: ''; position: absolute; top: 50%; right: -30px; width: 30px; height: 2px; background: #444;
-}
-.round-1 .match-pair::before { /* Лінія до наступного раунду */
-    content: ''; position: absolute; top: 50%; right: -60px; width: 30px; height: 2px; background: #444;
-}
-.round-2 .match-card::after { /* Лінія півфіналу */
-    content: ''; position: absolute; top: 50%; right: -60px; width: 60px; height: 2px; background: #444; z-index: -1;
-}
+.round-1 .match-pair::after { content: ''; position: absolute; top: 25%; bottom: 25%; right: -30px; width: 2px; background: #444; }
+.round-1 .match-card::after { content: ''; position: absolute; top: 50%; right: -30px; width: 30px; height: 2px; background: #444; }
+.round-1 .match-pair::before { content: ''; position: absolute; top: 50%; right: -60px; width: 30px; height: 2px; background: #444; }
+.round-2 .match-card::after { content: ''; position: absolute; top: 50%; right: -60px; width: 60px; height: 2px; background: #444; z-index: -1; }
 
 .match-card:hover::after, .match-pair:hover::after, .match-pair:hover::before {
     background: var(--primary); box-shadow: 0 0 10px var(--primary); transition: 0.3s;
@@ -311,7 +303,7 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
 .gold { color: gold !important; }
 
 /* ========================================= */
-/* 8. РЕЄСТРАЦІЯ (КАРТКИ І КНОПКИ) */
+/* 8. РЕЄСТРАЦІЯ ТА ІНШІ ЕЛЕМЕНТИ */
 /* ========================================= */
 .reg-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
 .reg-subtitle { color: var(--primary); margin-bottom: 25px; font-size: 1.4em; border-bottom: 1px solid rgba(255, 69, 0, 0.3); padding-bottom: 10px; }
@@ -346,100 +338,93 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
 .btn-discord-block { display: block; width: 100%; padding: 15px; background: #5865F2; color: white; font-weight: 700; text-decoration: none; border-radius: 6px; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
 .btn-discord-block:hover { background: #4752c4; box-shadow: 0 0 15px rgba(88, 101, 242, 0.5); }
 
+.btn-discord { display: block; width: 100%; padding: 15px; background: var(--discord-color); color: white; border: none; font-weight: bold; text-align: center; margin-top: 20px; text-decoration: none; border-radius: 4px;}
+.btn-discord:hover { background: #7289DA; }
+
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.stats-grid div { background: #333; padding: 20px; border-radius: 5px; border-left: 3px solid var(--primary); }
+.stats-grid span { font-weight: bold; color: #fff; display: block; margin-bottom: 5px; }
+
+.why-join-list li { background: #333; margin-bottom: 10px; padding: 10px; border-left: 3px solid #009688; }
+.stream-link { color: #4CAF50; }
+.stream-placeholder { color: #ccc; font-style: italic; }
+.cta-action { font-size: 1.4em; text-align: center; color: var(--primary); font-weight: bold; margin-top: 15px; }
+
+.leaderboard-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+.leaderboard-table th, .leaderboard-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left;}
+.leaderboard-table th { color: var(--primary); }
+.rank-1 { border-left: 4px solid gold; background: rgba(255, 215, 0, 0.1); }
+.table-note { margin-top: 20px; font-size: 0.95em; color: #aaa; text-align: center; }
+
+.warning-note { text-align: center; color: #ffaa00; margin-top: 10px; font-size: 0.9em; }
+
+.btn-submit { display: block; width: 100%; padding: 15px; background: #0088cc; color: white; border: none; font-weight: bold; text-align: center; margin-top: 10px; cursor: pointer; border-radius: 4px; text-decoration: none;}
+.btn-submit:hover { background: #00afff; }
+
 /* ========================================= */
-/* 12. МОБІЛЬНА АДАПТАЦІЯ (ТЕЛЕФОНИ) */
+/* 9. ФУТЕР І АНІМАЦІЇ */
 /* ========================================= */
-@media (max-width: 768px) {
-    
-    /* --- 1. КОМПАКТНАЯ НАВИГАЦИЯ (ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ) --- */
+footer { text-align: center; padding: 20px 0; color: #888; font-size: 0.9em; border-top: 1px solid #333; margin-top: 50px;}
+
+@keyframes glitch { 0% { transform: skew(0deg); } 20% { transform: skew(-2deg); } 40% { transform: skew(2deg); } 60% { transform: skew(-1deg); } 80% { transform: skew(3deg); } 100% { transform: skew(0deg); } }
+
+/* ========================================= */
+/* 10. МОБІЛЬНА АДАПТАЦІЯ (ТЕЛЕФОНИ + ПЛАНШЕТИ < 900px) */
+/* ========================================= */
+@media (max-width: 900px) {
+    /* 1. Забороняємо рух сайту, дозволяємо тільки скрол меню */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+
+    /* 2. Адаптація шапки */
+    .hero { padding: 40px 15px; }
+    .hero h1 { font-size: 1.8em; line-height: 1.2; }
+    .uni-support { font-size: 0.7em; letter-spacing: 1px; }
+
+    /* 3. Горизонтальне скрол-меню */
     nav {
         padding: 5px 0;
-        /* Если хотите, чтобы меню НЕ прилипало к верху при скролле, 
-           раскомментируйте строку ниже: */
-        /* position: relative; */
+        width: 100%;
     }
 
     .nav-container {
         width: 100%;
-        overflow-x: auto; /* Включаем горизонтальную прокрутку */
-        -webkit-overflow-scrolling: touch; /* Плавность для iPhone */
-        padding-bottom: 5px; /* Отступ для скроллбара */
+        overflow-x: auto; /* Дозволяємо скрол */
+        white-space: nowrap; /* В один рядок */
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 5px;
+        padding-left: 10px; /* Відступ зліва */
+        justify-content: flex-start; /* Вирівнювання по лівому краю */
     }
+    
+    .nav-container::-webkit-scrollbar { display: none; } /* Ховаємо скролбар */
 
     nav ul {
-        display: flex;
-        flex-direction: row; /* Строго в одну строку */
-        justify-content: flex-start; /* Выравнивание по левому краю */
-        gap: 15px; /* Отступ между ссылками */
-        padding: 0 20px; /* Отступы по бокам экрана */
-        width: max-content; /* Растягиваем контейнер под контент */
+        display: inline-flex;
+        gap: 15px;
+        padding: 0 10px;
+        width: max-content;
     }
 
     nav a {
-        font-size: 0.85rem; /* Уменьшаем шрифт */
-        white-space: nowrap; /* Запрещаем перенос текста */
-        padding: 8px 0;
-        display: block;
-    }
-
-    .btn-register {
-        padding: 5px 12px;
         font-size: 0.85rem;
-        margin: 0;
-    }
-
-    /* Скрываем скроллбар меню, но оставляем возможность скроллить (опционально) */
-    .nav-container::-webkit-scrollbar {
-        height: 0px;
-        background: transparent;
-    }
-
-    /* --- 2. АДАПТАЦИЯ ОСТАЛЬНЫХ БЛОКОВ --- */
-    .hero {
-        padding: 40px 15px; /* Уменьшаем отступы шапки */
-    }
-    
-    .hero h1 { 
-        font-size: 1.8em; /* Уменьшаем заголовок */
-        line-height: 1.2;
-    }
-
-    .uni-support {
-        font-size: 0.8em; /* Уменьшаем надпись про университет */
-        letter-spacing: 1px;
-    }
-
-    .container {
-        padding: 20px 15px; /* Меньше отступы у контента */
-    }
-
-    .section {
-        padding: 20px; /* Меньше отступы внутри блоков */
-    }
-
-    /* Сетки в одну колонку */
-    .reg-box, .stats-grid, .teams-grid { 
-        grid-template-columns: 1fr; 
-    }
-    
-    .reg-layout {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    /* Таблица с прокруткой */
-    .leaderboard-table {
+        padding: 10px 5px;
         display: block;
-        overflow-x: auto;
         white-space: nowrap;
     }
-    
-    .leaderboard-table th, .leaderboard-table td {
-        padding: 10px;
-        font-size: 0.85em;
-    }
 
-    .bracket-container {
-        min-width: 200vw; /* Сетка будет широкой, можно скроллить */
-    }
+    .btn-register { margin: 0; white-space: nowrap; font-size: 0.85rem; padding: 5px 12px; }
+
+    /* 4. Адаптація контенту */
+    .container { padding: 20px 15px; }
+    .section { padding: 20px; }
+    
+    .reg-box, .stats-grid, .teams-grid { grid-template-columns: 1fr; }
+    .reg-layout { grid-template-columns: 1fr; gap: 30px; }
+
+    .leaderboard-table { display: block; overflow-x: auto; white-space: nowrap; }
+    .bracket-container { min-width: 200vw; }
 }
