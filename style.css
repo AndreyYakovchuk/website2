@@ -372,72 +372,78 @@ footer { text-align: center; padding: 20px 0; color: #888; font-size: 0.9em; bor
 /* 10. МОБІЛЬНА АДАПТАЦІЯ (ТЕЛЕФОНИ + ПЛАНШЕТИ < 900px) */
 /* ========================================= */
 @media (max-width: 900px) {
-    /* 1. Забороняємо рух сайту, дозволяємо тільки скрол меню */
+    
+    /* 1. Фіксуємо сторінку від "хитання" */
     html, body {
         overflow-x: hidden;
         width: 100%;
         position: relative;
     }
 
-    /* 2. Адаптація шапки */
-    .hero { padding: 40px 15px; }
-    .hero h1 { font-size: 1.8em; line-height: 1.2; }
-    .uni-support { font-size: 0.7em; letter-spacing: 1px; }
+    /* 2. Зменшуємо шапку, щоб не займала багато місця */
+    .hero { padding: 30px 15px; }
+    .hero h1 { font-size: 1.8em; line-height: 1.2; margin-bottom: 5px; }
+    .uni-support { font-size: 0.7em; letter-spacing: 1px; margin-bottom: 10px; }
+    .hero p { font-size: 0.9em; }
 
-    /* 3. Горизонтальне скрол-меню (ВИПРАВЛЕНО) */
+    /* 3. КОМПАКТНЕ МЕНЮ (ВСЕ ВИДНО ВІДРАЗУ) */
     nav {
-        padding: 0;
+        padding: 10px 0;
         width: 100%;
-        overflow: hidden; /* Ховаємо все, що вилазить за межі блоку nav */
+        height: auto;
     }
 
     .nav-container {
         width: 100%;
-        overflow-x: auto; /* Дозволяємо скрол пальцем */
-        -webkit-overflow-scrolling: touch; /* Плавність для iOS */
-        /* Прибираємо скроллбар */
-        scrollbar-width: none; 
-        -ms-overflow-style: none;
-    }
-    
-    .nav-container::-webkit-scrollbar { 
-        display: none; 
+        padding: 0 10px;
     }
 
     nav ul {
-        display: flex; /* Використовуємо flex, а не inline-flex */
-        flex-wrap: nowrap; /* Забороняємо перенос на новий рядок */
-        gap: 20px; /* Відстань між кнопками */
-        padding: 15px 20px; /* Відступи всередині скролу */
-        width: max-content; /* Розтягуємо список на всю ширину контенту */
+        display: flex;
+        flex-wrap: wrap; /* Дозволяємо перенос на новий рядок */
+        justify-content: center; /* Центруємо кнопки */
+        gap: 8px; /* Маленькі відступи між кнопками */
+        padding: 0;
     }
 
     nav li {
-        flex-shrink: 0; /* Забороняємо стискати пункти меню */
+        flex: 0 1 auto; /* Кнопки займають стільки місця, скільки треба */
     }
 
+    /* Стиль кнопок меню на телефоні */
     nav a {
-        font-size: 0.9rem;
-        padding: 5px 0;
+        font-size: 0.75rem; /* Компактний шрифт */
+        padding: 6px 12px;
         display: block;
-        white-space: nowrap; /* Текст в один рядок */
+        background: rgba(255, 255, 255, 0.05); /* Легкий фон */
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-transform: uppercase;
+    }
+
+    /* Активна кнопка або ховер */
+    nav a:hover, nav a.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
     }
 
     .btn-register { 
         margin: 0; 
-        white-space: nowrap; 
-        font-size: 0.85rem; 
-        padding: 8px 15px; 
+        font-size: 0.75rem; 
+        padding: 6px 12px;
+        background: rgba(255, 69, 0, 0.2); /* Виділяємо реєстрацію */
+        border-color: var(--primary);
     }
 
     /* 4. Адаптація контенту */
-    .container { padding: 20px 15px; }
-    .section { padding: 20px; }
+    .container { padding: 20px 10px; }
+    .section { padding: 20px 15px; }
     
     .reg-box, .stats-grid, .teams-grid { grid-template-columns: 1fr; }
     .reg-layout { grid-template-columns: 1fr; gap: 30px; }
 
-    /* Таблиця з прокруткою */
+    /* Таблиця з прокруткою (щоб не ламала верстку) */
     .leaderboard-table { display: block; overflow-x: auto; white-space: nowrap; }
     
     /* Сітка турніру з прокруткою */
