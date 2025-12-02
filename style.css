@@ -384,39 +384,51 @@ footer { text-align: center; padding: 20px 0; color: #888; font-size: 0.9em; bor
     .hero h1 { font-size: 1.8em; line-height: 1.2; }
     .uni-support { font-size: 0.7em; letter-spacing: 1px; }
 
-    /* 3. Горизонтальне скрол-меню */
+    /* 3. Горизонтальне скрол-меню (ВИПРАВЛЕНО) */
     nav {
-        padding: 5px 0;
+        padding: 0;
         width: 100%;
+        overflow: hidden; /* Ховаємо все, що вилазить за межі блоку nav */
     }
 
     .nav-container {
         width: 100%;
-        overflow-x: auto; /* Дозволяємо скрол */
-        white-space: nowrap; /* В один рядок */
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 5px;
-        padding-left: 10px; /* Відступ зліва */
-        justify-content: flex-start; /* Вирівнювання по лівому краю */
+        overflow-x: auto; /* Дозволяємо скрол пальцем */
+        -webkit-overflow-scrolling: touch; /* Плавність для iOS */
+        /* Прибираємо скроллбар */
+        scrollbar-width: none; 
+        -ms-overflow-style: none;
     }
     
-    .nav-container::-webkit-scrollbar { display: none; } /* Ховаємо скролбар */
+    .nav-container::-webkit-scrollbar { 
+        display: none; 
+    }
 
     nav ul {
-        display: inline-flex;
-        gap: 15px;
-        padding: 0 10px;
-        width: max-content;
+        display: flex; /* Використовуємо flex, а не inline-flex */
+        flex-wrap: nowrap; /* Забороняємо перенос на новий рядок */
+        gap: 20px; /* Відстань між кнопками */
+        padding: 15px 20px; /* Відступи всередині скролу */
+        width: max-content; /* Розтягуємо список на всю ширину контенту */
+    }
+
+    nav li {
+        flex-shrink: 0; /* Забороняємо стискати пункти меню */
     }
 
     nav a {
-        font-size: 0.85rem;
-        padding: 10px 5px;
+        font-size: 0.9rem;
+        padding: 5px 0;
         display: block;
-        white-space: nowrap;
+        white-space: nowrap; /* Текст в один рядок */
     }
 
-    .btn-register { margin: 0; white-space: nowrap; font-size: 0.85rem; padding: 5px 12px; }
+    .btn-register { 
+        margin: 0; 
+        white-space: nowrap; 
+        font-size: 0.85rem; 
+        padding: 8px 15px; 
+    }
 
     /* 4. Адаптація контенту */
     .container { padding: 20px 15px; }
@@ -425,6 +437,9 @@ footer { text-align: center; padding: 20px 0; color: #888; font-size: 0.9em; bor
     .reg-box, .stats-grid, .teams-grid { grid-template-columns: 1fr; }
     .reg-layout { grid-template-columns: 1fr; gap: 30px; }
 
+    /* Таблиця з прокруткою */
     .leaderboard-table { display: block; overflow-x: auto; white-space: nowrap; }
+    
+    /* Сітка турніру з прокруткою */
     .bracket-container { min-width: 200vw; }
 }
