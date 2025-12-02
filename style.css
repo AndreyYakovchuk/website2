@@ -347,34 +347,99 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
 .btn-discord-block:hover { background: #4752c4; box-shadow: 0 0 15px rgba(88, 101, 242, 0.5); }
 
 /* ========================================= */
-/* 9. ІНШІ СТИЛІ (ТАБЛИЦЯ, СТАТИСТИКА) */
+/* 12. МОБІЛЬНА АДАПТАЦІЯ (ТЕЛЕФОНИ) */
 /* ========================================= */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-.stats-grid div { background: #333; padding: 20px; border-radius: 5px; border-left: 3px solid var(--primary); }
-.stats-grid span { font-weight: bold; color: #fff; display: block; margin-bottom: 5px; }
-
-.why-join-list li { background: #333; margin-bottom: 10px; padding: 10px; border-left: 3px solid #009688; }
-.stream-link { color: #4CAF50; }
-.stream-placeholder { color: #ccc; font-style: italic; }
-.cta-action { font-size: 1.4em; text-align: center; color: var(--primary); font-weight: bold; margin-top: 15px; }
-
-.leaderboard-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-.leaderboard-table th, .leaderboard-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left;}
-.leaderboard-table th { color: var(--primary); }
-.rank-1 { border-left: 4px solid gold; background: rgba(255, 215, 0, 0.1); }
-.table-note { margin-top: 20px; font-size: 0.95em; color: #aaa; text-align: center; }
-
-/* ========================================= */
-/* 10. ФУТЕР І МОБІЛЬНА ВЕРСІЯ */
-/* ========================================= */
-footer { text-align: center; padding: 20px 0; color: #888; font-size: 0.9em; border-top: 1px solid #333; margin-top: 50px;}
-
-@keyframes glitch { 0% { transform: skew(0deg); } 20% { transform: skew(-2deg); } 40% { transform: skew(2deg); } 60% { transform: skew(-1deg); } 80% { transform: skew(3deg); } 100% { transform: skew(0deg); } }
-
 @media (max-width: 768px) {
-    .hero h1 { font-size: 2.2em; }
-    .reg-layout { grid-template-columns: 1fr; }
-    nav ul { flex-direction: column; }
-    .stats-grid { grid-template-columns: 1fr; }
-    .bracket-container { min-width: 900px; }
+    
+    /* --- 1. КОМПАКТНАЯ НАВИГАЦИЯ (ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ) --- */
+    nav {
+        padding: 5px 0;
+        /* Если хотите, чтобы меню НЕ прилипало к верху при скролле, 
+           раскомментируйте строку ниже: */
+        /* position: relative; */
+    }
+
+    .nav-container {
+        width: 100%;
+        overflow-x: auto; /* Включаем горизонтальную прокрутку */
+        -webkit-overflow-scrolling: touch; /* Плавность для iPhone */
+        padding-bottom: 5px; /* Отступ для скроллбара */
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: row; /* Строго в одну строку */
+        justify-content: flex-start; /* Выравнивание по левому краю */
+        gap: 15px; /* Отступ между ссылками */
+        padding: 0 20px; /* Отступы по бокам экрана */
+        width: max-content; /* Растягиваем контейнер под контент */
+    }
+
+    nav a {
+        font-size: 0.85rem; /* Уменьшаем шрифт */
+        white-space: nowrap; /* Запрещаем перенос текста */
+        padding: 8px 0;
+        display: block;
+    }
+
+    .btn-register {
+        padding: 5px 12px;
+        font-size: 0.85rem;
+        margin: 0;
+    }
+
+    /* Скрываем скроллбар меню, но оставляем возможность скроллить (опционально) */
+    .nav-container::-webkit-scrollbar {
+        height: 0px;
+        background: transparent;
+    }
+
+    /* --- 2. АДАПТАЦИЯ ОСТАЛЬНЫХ БЛОКОВ --- */
+    .hero {
+        padding: 40px 15px; /* Уменьшаем отступы шапки */
+    }
+    
+    .hero h1 { 
+        font-size: 1.8em; /* Уменьшаем заголовок */
+        line-height: 1.2;
+    }
+
+    .uni-support {
+        font-size: 0.8em; /* Уменьшаем надпись про университет */
+        letter-spacing: 1px;
+    }
+
+    .container {
+        padding: 20px 15px; /* Меньше отступы у контента */
+    }
+
+    .section {
+        padding: 20px; /* Меньше отступы внутри блоков */
+    }
+
+    /* Сетки в одну колонку */
+    .reg-box, .stats-grid, .teams-grid { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .reg-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    /* Таблица с прокруткой */
+    .leaderboard-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .leaderboard-table th, .leaderboard-table td {
+        padding: 10px;
+        font-size: 0.85em;
+    }
+
+    .bracket-container {
+        min-width: 200vw; /* Сетка будет широкой, можно скроллить */
+    }
 }
