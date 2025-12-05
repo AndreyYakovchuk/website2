@@ -226,7 +226,7 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
 @keyframes rotate-border { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
 /* ========================================= */
-/* 7. ТУРНІРНА СІТКА (DYNAMIC & CONNECTED) */
+/* 7. ТУРНІРНА СІТКА (ЧИСТИЙ СТИЛЬ / БЕЗ ЛІНІЙ) */
 /* ========================================= */
 .bracket-scroll {
     overflow-x: auto;
@@ -237,8 +237,10 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
 
 .bracket-container {
     display: flex;
+    justify-content: center; /* Центруємо сітку, якщо вона мала */
     padding: 0 20px;
     min-width: max-content; /* Розтягується під контент */
+    gap: 30px; /* Акуратний відступ між раундами замість ліній */
 }
 
 /* Колонки раундів */
@@ -247,12 +249,7 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
     flex-direction: column;
     justify-content: space-around; /* Рівномірний розподіл по висоті */
     width: 260px;
-    margin-right: 80px; /* Місце для ліній */
     position: relative;
-}
-
-.round:last-child {
-    margin-right: 0;
 }
 
 .round-header {
@@ -262,16 +259,17 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
     top: -50px;
     width: 100%;
     font-size: 1.2rem;
+    font-weight: 700;
     text-shadow: 0 0 10px rgba(255, 69, 0, 0.3);
 }
 
-/* Обгортка пари (для позиціонування) */
+/* Обгортка пари */
 .match-pair {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
-    height: 100%; /* Займає доступну висоту у флексі */
+    height: 100%; 
+    margin-bottom: 20px;
 }
 
 /* Сама картка матчу */
@@ -284,13 +282,19 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
     position: relative;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     transition: 0.3s;
-    z-index: 2; /* Щоб бути поверх ліній */
+    margin-bottom: 15px; /* Відступ між матчами */
+}
+
+/* Прибираємо margin у останньої картки в групі */
+.match-card:last-child {
+    margin-bottom: 0;
 }
 
 .match-card:hover {
     transform: scale(1.03);
     border-color: var(--primary);
     box-shadow: 0 0 20px rgba(255, 69, 0, 0.2);
+    z-index: 2;
 }
 
 /* Команди */
@@ -305,57 +309,9 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
     border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-.winner span { color: #00ff88; text-shadow: 0 0 5px #00ff88; }
+.winner span { color: #00ff88; text-shadow: 0 0 5px rgba(0, 255, 136, 0.5); }
 .loser span { color: #666; text-decoration: line-through; }
 .score { font-family: monospace; color: #fff; }
-
-/* === МАГІЯ ЛІНІЙ (CONNECTORS) === */
-
-/* Горизонтальна лінія від матчу вправо */
-.round-1 .match-card::after,
-.round-2 .match-card::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -40px; /* Довжина лінії */
-    width: 40px;
-    height: 2px;
-    background: #444;
-}
-
-/* Вертикальні з'єднання для раунду 1 */
-/* Ми малюємо їх на every odd element (непарних), з'єднуючи з парним */
-.round-1 .match-pair:nth-child(odd)::after {
-    content: '';
-    position: absolute;
-    right: -40px; /* Позиція вертикальної палки */
-    top: 50%; /* Початок від середини верхнього матчу */
-    height: 100%; /* Тягнеться вниз до наступного матчу (приблизно) */
-    /* Тут трюк: висота залежить від сусіднього елемента, у JS простіше, але CSS теж може */
-    width: 2px;
-    background: #444;
-    /* Це складний момент для чистого CSS, ми спростимо візуал: */
-    /* Просто малюємо лінію вправо від кожного матчу, а вертикальні лінії залишимо умовно */
-}
-
-/* Спрощений, але надійний варіант ліній для JS-генерації */
-/* Лінія від кожного матчу вправо */
-.match-card::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -80px; /* Тягнемо до наступної колонки */
-    width: 80px;
-    height: 2px;
-    background: linear-gradient(to right, #444 50%, transparent 100%);
-    z-index: -1;
-}
-
-/* Останній раунд і Чемпіон без ліній вправо */
-.round-3 .match-card::after, 
-.round-4 .match-card::after {
-    display: none;
-}
 
 /* Фінальний матч */
 .final-match {
@@ -533,4 +489,5 @@ footer { text-align: center; padding: 20px 0; color: #888; font-size: 0.9em; bor
     /* Сітка турніру з прокруткою */
     .bracket-container { min-width: 200vw; }
 }
+
 
