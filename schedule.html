@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Турнір CS2 - Сітка</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -31,76 +32,13 @@
 
     <main class="container">
         <section id="schedule" class="section">
-            <h2 style="text-align: center;">ТУРНІРНА СІТКА</h2>
-            <p style="text-align: center; margin-bottom: 40px; color: #888;">Плей-офф (Single Elimination, 8 команд)</p>
+            <h2 style="text-align: center; margin-bottom: 40px;">ТУРНІРНА СІТКА</h2>
             
             <div class="bracket-scroll">
-                <div class="bracket-container">
-                    
-                    <div class="round round-1">
-                        <h3 class="round-header">1/4 ФІНАЛУ</h3>
-                        
-                        <div class="match-pair">
-                            <div class="match-card">
-                                <div class="team winner"><span>1. Team Inferno</span><span class="score">2</span></div>
-                                <div class="team loser"><span>8. Team Solid</span><span class="score">0</span></div>
-                            </div>
-                            <div class="match-card">
-                                <div class="team"><span>4. Cyber Wolves</span><span class="score">-</span></div>
-                                <div class="team"><span>5. Natus Vincere</span><span class="score">-</span></div>
-                            </div>
-                        </div>
-
-                        <div class="match-pair">
-                            <div class="match-card">
-                                <div class="team"><span>3. Cloud9</span><span class="score">-</span></div>
-                                <div class="team"><span>6. Virtus.pro</span><span class="score">-</span></div>
-                            </div>
-                            <div class="match-card">
-                                <div class="team"><span>2. FaZe Clan</span><span class="score">-</span></div>
-                                <div class="team"><span>7. G2 Esports</span><span class="score">-</span></div>
-                            </div>
-                        </div>
+                <div id="bracketRoot" class="bracket-container">
                     </div>
-
-                    <div class="round round-2">
-                        <h3 class="round-header">ПІВФІНАЛ</h3>
-                        
-                        <div class="match-pair">
-                            <div class="match-card">
-                                <div class="team"><span>TBA</span><span class="score">0</span></div>
-                                <div class="team"><span>TBA</span><span class="score">0</span></div>
-                            </div>
-                        </div>
-
-                        <div class="match-pair">
-                            <div class="match-card">
-                                <div class="team"><span>TBA</span><span class="score">0</span></div>
-                                <div class="team"><span>TBA</span><span class="score">0</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="round round-3">
-                        <h3 class="round-header">ФІНАЛ</h3>
-                        <div class="match-pair">
-                            <div class="match-card final-match">
-                                <div class="team gold"><span>TBA</span><span class="score">0</span></div>
-                                <div class="team gold"><span>TBA</span><span class="score">0</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="round round-4">
-                        <h3 class="round-header">ЧЕМПІОН</h3>
-                        <div class="champion-box">
-                            <i class="fa-solid fa-trophy"></i>
-                            <span>?</span>
-                        </div>
-                    </div>
-
-                </div>
             </div>
+
         </section>
     </main>
 
@@ -109,7 +47,112 @@
             <p>&copy; 2025 CS2 LEGACY CUP. За підтримки Херсонського державного університету. Всі права захищені.</p>
         </div>
     </footer>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        // === НАЛАШТУВАННЯ ДАНИХ ТУРНІРУ ===
+        // Просто змінюйте назви команд та рахунок тут!
+        // null у рахунку означає, що матч ще не зіграно.
+        
+        const quarterFinals = [
+            { 
+                t1: "NaVi Junior", s1: 13, 
+                t2: "Team Spirit", s2: 10 
+            },
+            { 
+                t1: "Monte Gen", s1: 8, 
+                t2: "B8 Esports", s2: 13 
+            },
+            { 
+                t1: "Passion UA", s1: null, 
+                t2: "Favbet", s2: null 
+            },
+            { 
+                t1: "kONO.ECF", s1: null, 
+                t2: "Lazer Cats", s2: null 
+            }
+        ];
+
+        // --- ЛОГІКА (НЕ ЧІПАТИ) ---
+        function renderBracket() {
+            const root = document.getElementById('bracketRoot');
+            
+            // 1. Розрахунок Півфіналів (Winners of QF)
+            const semiFinals = [];
+            for (let i = 0; i < quarterFinals.length; i += 2) {
+                const match1 = getWinner(quarterFinals[i]);
+                const match2 = getWinner(quarterFinals[i+1]);
+                semiFinals.push({ t1: match1, s1: null, t2: match2, s2: null });
+            }
+
+            // 2. Розрахунок Фіналу (Winners of SF)
+            // (Тут можна вручну прописати рахунок півфіналів, якщо вони вже йдуть)
+            // Для прикладу залишимо null (не зіграно)
+            const finals = [
+                { t1: "TBA", s1: null, t2: "TBA", s2: null } 
+            ];
+
+            // 3. РЕНДЕРИНГ КОЛОНОК
+            let html = '';
+
+            // --- КОЛОНКА 1: 1/4 ---
+            html += `<div class="round round-1"><h3 class="round-header">1/4 ФІНАЛУ</h3>`;
+            quarterFinals.forEach(m => html += createMatchHTML(m));
+            html += `</div>`;
+
+            // --- КОЛОНКА 2: 1/2 ---
+            html += `<div class="round round-2"><h3 class="round-header">ПІВФІНАЛ</h3>`;
+            semiFinals.forEach(m => html += createMatchHTML(m));
+            html += `</div>`;
+
+            // --- КОЛОНКА 3: ФІНАЛ ---
+            html += `<div class="round round-3"><h3 class="round-header">ФІНАЛ</h3>`;
+            finals.forEach(m => html += createMatchHTML(m, true));
+            html += `</div>`;
+
+            // --- КОЛОНКА 4: ЧЕМПІОН ---
+            html += `<div class="round round-4"><h3 class="round-header">ЧЕМПІОН</h3>`;
+            html += `
+                <div class="champion-box">
+                    <i class="fa-solid fa-trophy"></i>
+                    <span>?</span>
+                </div>`;
+            html += `</div>`;
+
+            root.innerHTML = html;
+        }
+
+        // Допоміжна функція: Хто переміг?
+        function getWinner(match) {
+            if (match.s1 === null || match.s2 === null) return "TBA";
+            if (match.s1 > match.s2) return match.t1;
+            return match.t2;
+        }
+
+        // Допоміжна функція: Генерація HTML картки
+        function createMatchHTML(m, isFinal = false) {
+            let c1 = '', c2 = ''; // Класи для кольору
+            
+            if (m.s1 !== null && m.s2 !== null) {
+                if (m.s1 > m.s2) { c1 = 'winner'; c2 = 'loser'; }
+                else { c1 = 'loser'; c2 = 'winner'; }
+            }
+
+            let score1 = m.s1 !== null ? m.s1 : '-';
+            let score2 = m.s2 !== null ? m.s2 : '-';
+            let finalClass = isFinal ? 'final-match' : '';
+
+            return `
+                <div class="match-pair">
+                    <div class="match-card ${finalClass}">
+                        <div class="team ${c1}"><span>${m.t1}</span><span class="score">${score1}</span></div>
+                        <div class="team ${c2}"><span>${m.t2}</span><span class="score">${score2}</span></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Запуск
+        renderBracket();
+    </script>
 </body>
 </html>
