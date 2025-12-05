@@ -226,82 +226,166 @@ hr { border: 0; height: 1px; background: #444; margin: 40px 0; }
 @keyframes rotate-border { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
 /* ========================================= */
-/* 7. ТУРНІРНА СІТКА (З ЛІНІЯМИ) */
+/* 7. ТУРНІРНА СІТКА (DYNAMIC & CONNECTED) */
 /* ========================================= */
 .bracket-scroll {
     overflow-x: auto;
-    padding: 20px 0;
+    padding: 40px 0;
     scrollbar-width: thin;
     scrollbar-color: var(--primary) #111;
 }
 
 .bracket-container {
     display: flex;
-    justify-content: flex-start;
-    min-width: 900px;
     padding: 0 20px;
+    min-width: max-content; /* Розтягується під контент */
 }
 
+/* Колонки раундів */
 .round {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    width: 250px;
-    margin-right: 60px;
+    justify-content: space-around; /* Рівномірний розподіл по висоті */
+    width: 260px;
+    margin-right: 80px; /* Місце для ліній */
     position: relative;
+}
+
+.round:last-child {
+    margin-right: 0;
 }
 
 .round-header {
     text-align: center;
     color: var(--primary);
-    margin-bottom: 20px;
     position: absolute;
-    top: -40px;
+    top: -50px;
     width: 100%;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px rgba(255, 69, 0, 0.3);
 }
 
+/* Обгортка пари (для позиціонування) */
 .match-pair {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 40px;
     position: relative;
-    margin-bottom: 40px;
+    height: 100%; /* Займає доступну висоту у флексі */
 }
 
+/* Сама картка матчу */
 .match-card {
-    background: rgba(20, 20, 20, 0.9);
+    background: rgba(20, 20, 20, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-left: 3px solid var(--primary);
     border-radius: 6px;
-    padding: 10px 15px;
+    padding: 12px;
     position: relative;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     transition: 0.3s;
-    backdrop-filter: blur(5px);
+    z-index: 2; /* Щоб бути поверх ліній */
 }
 
-.match-card:hover { transform: scale(1.05); border-color: var(--primary); box-shadow: 0 0 20px rgba(255, 69, 0, 0.2); z-index: 10; }
+.match-card:hover {
+    transform: scale(1.03);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.2);
+}
 
-.match-card .team { display: flex; justify-content: space-between; padding: 5px 0; font-size: 0.95em; font-weight: 600; }
-.match-card .team:first-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
+/* Команди */
+.match-card .team {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+.match-card .team:first-child {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
 .winner span { color: #00ff88; text-shadow: 0 0 5px #00ff88; }
-.loser span { color: #555; }
-.score { font-family: monospace; }
+.loser span { color: #666; text-decoration: line-through; }
+.score { font-family: monospace; color: #fff; }
 
-.round-1 .match-pair { position: relative; }
-.round-1 .match-pair::after { content: ''; position: absolute; top: 25%; bottom: 25%; right: -30px; width: 2px; background: #444; }
-.round-1 .match-card::after { content: ''; position: absolute; top: 50%; right: -30px; width: 30px; height: 2px; background: #444; }
-.round-1 .match-pair::before { content: ''; position: absolute; top: 50%; right: -60px; width: 30px; height: 2px; background: #444; }
-.round-2 .match-card::after { content: ''; position: absolute; top: 50%; right: -60px; width: 60px; height: 2px; background: #444; z-index: -1; }
+/* === МАГІЯ ЛІНІЙ (CONNECTORS) === */
 
-.match-card:hover::after, .match-pair:hover::after, .match-pair:hover::before {
-    background: var(--primary); box-shadow: 0 0 10px var(--primary); transition: 0.3s;
+/* Горизонтальна лінія від матчу вправо */
+.round-1 .match-card::after,
+.round-2 .match-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -40px; /* Довжина лінії */
+    width: 40px;
+    height: 2px;
+    background: #444;
 }
 
-.final-match { border-color: gold; box-shadow: 0 0 30px rgba(255, 215, 0, 0.1); }
-.gold { color: gold !important; }
+/* Вертикальні з'єднання для раунду 1 */
+/* Ми малюємо їх на every odd element (непарних), з'єднуючи з парним */
+.round-1 .match-pair:nth-child(odd)::after {
+    content: '';
+    position: absolute;
+    right: -40px; /* Позиція вертикальної палки */
+    top: 50%; /* Початок від середини верхнього матчу */
+    height: 100%; /* Тягнеться вниз до наступного матчу (приблизно) */
+    /* Тут трюк: висота залежить від сусіднього елемента, у JS простіше, але CSS теж може */
+    width: 2px;
+    background: #444;
+    /* Це складний момент для чистого CSS, ми спростимо візуал: */
+    /* Просто малюємо лінію вправо від кожного матчу, а вертикальні лінії залишимо умовно */
+}
 
+/* Спрощений, але надійний варіант ліній для JS-генерації */
+/* Лінія від кожного матчу вправо */
+.match-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -80px; /* Тягнемо до наступної колонки */
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(to right, #444 50%, transparent 100%);
+    z-index: -1;
+}
+
+/* Останній раунд і Чемпіон без ліній вправо */
+.round-3 .match-card::after, 
+.round-4 .match-card::after {
+    display: none;
+}
+
+/* Фінальний матч */
+.final-match {
+    border-color: gold;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.1);
+}
+
+/* Чемпіон */
+.champion-box {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, rgba(0,0,0,0) 70%);
+    border: 2px solid gold;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: gold;
+    animation: pulse-gold 3s infinite;
+}
+.champion-box i { font-size: 3em; margin-bottom: 10px; }
+.champion-box span { font-size: 1.2em; font-weight: bold; }
+
+@keyframes pulse-gold {
+    0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+    50% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+}
 /* ========================================= */
 /* 8. РЕЄСТРАЦІЯ ТА ІНШІ ЕЛЕМЕНТИ */
 /* ========================================= */
@@ -449,3 +533,4 @@ footer { text-align: center; padding: 20px 0; color: #888; font-size: 0.9em; bor
     /* Сітка турніру з прокруткою */
     .bracket-container { min-width: 200vw; }
 }
+
