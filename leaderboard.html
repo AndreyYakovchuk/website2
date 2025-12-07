@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Турнір CS2 - Сітка</title>
+    <title>Турнір CS2 - Таблиця</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,7 +12,7 @@
         <div class="container">
             <div class="uni-support">За підтримки Херсонського державного університету</div>
             <h1>CS2 LEGACY CUP</h1>
-            <p>Формат: Double Elimination (16 команд)</p>
+            <p>Призовий фонд: 3000 грн | Реєстрація відкрита! до 13.07.2025</p>
         </div>
     </header>
 
@@ -23,7 +22,7 @@
                 <li><a href="index.html">Про Турнір</a></li>
                 <li><a href="teams.html">Команди</a></li>
                 <li><a href="rules.html">Правила</a></li>
-                <li><a href="schedule.html" class="active">Сітка / Розклад</a></li>
+                <li><a href="schedule.html">Сітка / Розклад</a></li>
                 <li><a href="leaderboard.html">ТАБЛИЦЯ</a></li>
                 <li><a href="register.html" class="btn-register">РЕЄСТРАЦІЯ</a></li>
             </ul>
@@ -31,25 +30,24 @@
     </nav>
 
     <main class="container">
-        <section id="schedule" class="section">
-            
-            <h2 class="bracket-title">UPPER BRACKET (ВІННЕРИ)</h2>
-            <p style="text-align: center; color: #888; margin-bottom: 30px;">Основна сітка. Поразка відправляє в нижню сітку.</p>
-            <div class="bracket-scroll">
-                <div id="upperBracketRoot" class="bracket-container"></div>
-            </div>
-
-            <h2 class="bracket-title" style="color: #00d4ff; border-color: #00d4ff; margin-top: 50px;">LOWER BRACKET (ЛУЗЕРИ)</h2>
-            <p style="text-align: center; color: #888; margin-bottom: 30px;">Сітка другого шансу. Поразка тут означає виліт з турніру.</p>
-            <div class="bracket-scroll">
-                <div id="lowerBracketRoot" class="bracket-container"></div>
-            </div>
-
-            <h2 class="bracket-title" style="color: gold; border-color: gold; margin-top: 50px;">GRAND FINAL</h2>
-            <div class="bracket-scroll">
-                <div id="finalRoot" class="bracket-container" style="justify-content: center;"></div>
-            </div>
-
+        <section id="leaderboard" class="section">
+            <h2>🏆 Фінальний Рейтинг</h2>
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Місце</th>
+                        <th>Команда</th>
+                        <th>Приз ($)</th>
+                        <th>W/L</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="rank-1"><td>1</td><td>Team WINNER</td><td>1800 грн</td><td>0/0</td></tr>
+                    <tr class="rank-2"><td>2</td><td>Team RunnerUp</td><td>750 грн</td><td>0/0</td></tr>
+                    <tr class="rank-3"><td>3-4</td><td>Team SemiFinalist</td><td>450 грн</td><td>0/0</td></tr>
+                </tbody>
+            </table>
+            <p class="table-note">Інформація про призовий фонд очікується. Турнір орієнтований на розвиток та досвід.</p>
         </section>
     </main>
 
@@ -58,154 +56,5 @@
             <p>&copy; 2025 CS2 LEGACY CUP. За підтримки Херсонського державного університету. Всі права захищені.</p>
         </div>
     </footer>
-
-    <script>
-        /* ІНСТРУКЦІЯ:
-           Заповнюйте назви команд замість "TBA" та рахунок замість null.
-           t1: Назва команди 1
-           s1: Рахунок команди 1
-        */
-
-        // 1. ВЕРХНЯ СІТКА (Winners)
-        const upperBracketData = [
-            {
-                name: "1/8 ФІНАЛУ",
-                matches: [
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 1
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 2
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 3
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 4
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 5
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 6
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 7
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }  // Матч 8
-                ]
-            },
-            {
-                name: "1/4 ФІНАЛУ",
-                matches: [
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
-                ]
-            },
-            {
-                name: "ПІВФІНАЛ",
-                matches: [
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
-                ]
-            },
-            {
-                name: "ФІНАЛ ВІННЕРІВ",
-                matches: [
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
-                ]
-            }
-        ];
-
-        // 2. НИЖНЯ СІТКА (Losers)
-        const lowerBracketData = [
-            {
-                name: "ROUND 1 (Losers 1/8)",
-                matches: [
-                    { t1: "321", s1: null, t2: "TBA", s2: null },
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
-                ]
-            },
-            {
-                name: "ROUND 2",
-                matches: [
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
-                ]
-            },
-            {
-                name: "ROUND 3",
-                matches: [
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
-                ]
-            },
-            {
-                name: "ROUND 4",
-                matches: [
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
-                ]
-            },
-            {
-                name: "ФІНАЛ ЛУЗЕРІВ",
-                matches: [
-                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
-                ]
-            }
-        ];
-
-        // 3. ГРАНД ФІНАЛ
-        const grandFinalData = [
-            { t1: "Winner Upper", s1: null, t2: "Winner Lower", s2: null }
-        ];
-
-        // --- ЛОГІКА РЕНДЕРИНГУ ---
-        function renderSection(data, rootId, isFinal = false) {
-            const root = document.getElementById(rootId);
-            let html = '';
-
-            if (isFinal) {
-                let m = data[0];
-                html += createMatchHTML(m, true);
-                html += `
-                <div class="champion-box" style="margin-left: 50px;">
-                    <i class="fa-solid fa-trophy"></i>
-                    <span>?</span>
-                </div>`;
-            } else {
-                data.forEach((round, index) => {
-                    html += `<div class="round round-${index}"><h3 class="round-header">${round.name}</h3>`;
-                    round.matches.forEach(m => {
-                        html += createMatchHTML(m);
-                    });
-                    html += `</div>`;
-                });
-            }
-            root.innerHTML = html;
-        }
-
-        function createMatchHTML(m, isFinal = false) {
-            let c1 = '', c2 = '';
-            
-            if (m.s1 !== null && m.s2 !== null) {
-                if (m.s1 > m.s2) { c1 = 'winner'; c2 = 'loser'; }
-                else { c1 = 'loser'; c2 = 'winner'; }
-            }
-
-            let score1 = m.s1 !== null ? m.s1 : '-';
-            let score2 = m.s2 !== null ? m.s2 : '-';
-            let finalClass = isFinal ? 'final-match' : '';
-
-            let t1Style = (m.t1 === "TBA" || m.t1.includes("Winner") || m.t1.includes("Loser")) ? 'color: #666;' : '';
-            let t2Style = (m.t2 === "TBA" || m.t2.includes("Winner") || m.t2.includes("Loser")) ? 'color: #666;' : '';
-
-            return `
-                <div class="match-pair">
-                    <div class="match-card ${finalClass}">
-                        <div class="team ${c1}" style="${t1Style}"><span>${m.t1}</span><span class="score">${score1}</span></div>
-                        <div class="team ${c2}" style="${t2Style}"><span>${m.t2}</span><span class="score">${score2}</span></div>
-                    </div>
-                </div>
-            `;
-        }
-
-        renderSection(upperBracketData, 'upperBracketRoot');
-        renderSection(lowerBracketData, 'lowerBracketRoot');
-        renderSection(grandFinalData, 'finalRoot', true);
-
-    </script>
 </body>
 </html>
