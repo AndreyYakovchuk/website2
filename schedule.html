@@ -60,25 +60,31 @@
     </footer>
 
     <script>
-        // 1. ВЕРХНЯ СІТКА (16 команд)
+        /* ІНСТРУКЦІЯ:
+           Заповнюйте назви команд замість "TBA" та рахунок замість null.
+           t1: Назва команди 1
+           s1: Рахунок команди 1
+        */
+
+        // 1. ВЕРХНЯ СІТКА (Winners)
         const upperBracketData = [
             {
                 name: "1/8 ФІНАЛУ",
                 matches: [
-                    { t1: "NaVi Junior", s1: 13, t2: "Team Solid", s2: 5 },
-                    { t1: "B8 Esports", s1: null, t2: "Monte Gen", s2: null },
-                    { t1: "Passion UA", s1: null, t2: "Favbet", s2: null },
-                    { t1: "kONO.ECF", s1: null, t2: "Lazer Cats", s2: null },
-                    { t1: "IKLA", s1: null, t2: "Leogaming", s2: null },
-                    { t1: "The Witchers", s1: null, t2: "ROSOMAHA", s2: null },
-                    { t1: "Team Hryvnia", s1: null, t2: "L&G", s2: null },
-                    { t1: "ENEIDA", s1: null, t2: "KYIV", s2: null }
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 1
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 2
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 3
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 4
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 5
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 6
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }, // Матч 7
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }  // Матч 8
                 ]
             },
             {
                 name: "1/4 ФІНАЛУ",
                 matches: [
-                    { t1: "NaVi Junior", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
                     { t1: "TBA", s1: null, t2: "TBA", s2: null },
                     { t1: "TBA", s1: null, t2: "TBA", s2: null },
                     { t1: "TBA", s1: null, t2: "TBA", s2: null }
@@ -99,24 +105,24 @@
             }
         ];
 
-        // 2. НИЖНЯ СІТКА
+        // 2. НИЖНЯ СІТКА (Losers)
         const lowerBracketData = [
             {
-                name: "ROUND 1 (Ті, хто програв 1/8)",
+                name: "ROUND 1 (Losers 1/8)",
                 matches: [
-                    { t1: "Team Solid", s1: null, t2: "Loser M2", s2: null },
-                    { t1: "Loser M3", s1: null, t2: "Loser M4", s2: null },
-                    { t1: "Loser M5", s1: null, t2: "Loser M6", s2: null },
-                    { t1: "Loser M7", s1: null, t2: "Loser M8", s2: null }
+                    { t1: "321", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
                 ]
             },
             {
                 name: "ROUND 2",
                 matches: [
-                    { t1: "Winner L1", s1: null, t2: "Loser QF1", s2: null },
-                    { t1: "Winner L2", s1: null, t2: "Loser QF2", s2: null },
-                    { t1: "Winner L3", s1: null, t2: "Loser QF3", s2: null },
-                    { t1: "Winner L4", s1: null, t2: "Loser QF4", s2: null }
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
                 ]
             },
             {
@@ -129,8 +135,8 @@
             {
                 name: "ROUND 4",
                 matches: [
-                    { t1: "TBA", s1: null, t2: "Loser SF1", s2: null },
-                    { t1: "TBA", s1: null, t2: "Loser SF2", s2: null }
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
                 ]
             },
             {
@@ -141,12 +147,12 @@
             }
         ];
 
-        // 3. ГРАНД ФИНАЛ
+        // 3. ГРАНД ФІНАЛ
         const grandFinalData = [
             { t1: "Winner Upper", s1: null, t2: "Winner Lower", s2: null }
         ];
 
-        // --- ФУНКЦІЯ РЕНДЕРИНГУ ---
+        // --- ЛОГІКА РЕНДЕРИНГУ ---
         function renderSection(data, rootId, isFinal = false) {
             const root = document.getElementById(rootId);
             let html = '';
@@ -162,7 +168,9 @@
             } else {
                 data.forEach((round, index) => {
                     html += `<div class="round round-${index}"><h3 class="round-header">${round.name}</h3>`;
-                    round.matches.forEach(m => html += createMatchHTML(m));
+                    round.matches.forEach(m => {
+                        html += createMatchHTML(m);
+                    });
                     html += `</div>`;
                 });
             }
@@ -171,15 +179,18 @@
 
         function createMatchHTML(m, isFinal = false) {
             let c1 = '', c2 = '';
+            
             if (m.s1 !== null && m.s2 !== null) {
                 if (m.s1 > m.s2) { c1 = 'winner'; c2 = 'loser'; }
                 else { c1 = 'loser'; c2 = 'winner'; }
             }
+
             let score1 = m.s1 !== null ? m.s1 : '-';
             let score2 = m.s2 !== null ? m.s2 : '-';
             let finalClass = isFinal ? 'final-match' : '';
-            let t1Style = (m.t1.includes("TBA") || m.t1.includes("Loser") || m.t1.includes("Winner")) ? 'color: #666;' : '';
-            let t2Style = (m.t2.includes("TBA") || m.t2.includes("Loser") || m.t2.includes("Winner")) ? 'color: #666;' : '';
+
+            let t1Style = (m.t1 === "TBA" || m.t1.includes("Winner") || m.t1.includes("Loser")) ? 'color: #666;' : '';
+            let t2Style = (m.t2 === "TBA" || m.t2.includes("Winner") || m.t2.includes("Loser")) ? 'color: #666;' : '';
 
             return `
                 <div class="match-pair">
@@ -194,6 +205,7 @@
         renderSection(upperBracketData, 'upperBracketRoot');
         renderSection(lowerBracketData, 'lowerBracketRoot');
         renderSection(grandFinalData, 'finalRoot', true);
+
     </script>
 </body>
 </html>
