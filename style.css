@@ -491,3 +491,57 @@ footer { text-align: center; padding: 20px 0; color: #888; font-size: 0.9em; bor
 }
 
 
+/* ========================================= */
+/* СТИЛІ ДЛЯ DOUBLE ELIMINATION */
+/* ========================================= */
+
+.bracket-title {
+    text-align: center;
+    border-bottom: 2px solid var(--primary);
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    /* Центрування блоку заголовка */
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+/* Відступи між сітками */
+#lowerBracketRoot {
+    margin-bottom: 50px;
+}
+
+/* Корекція для великої кількості раундів */
+.bracket-container {
+    gap: 40px; /* Більший відступ між колонками для читабельності */
+}
+
+.match-pair {
+    margin-bottom: 15px; /* Компактніші матчі */
+}
+
+/* Різні кольори для Upper/Lower */
+#lowerBracketRoot .match-card {
+    border-left-color: #00d4ff; /* Блакитний для нижньої сітки */
+}
+
+#lowerBracketRoot .round-header {
+    color: #00d4ff;
+}
+
+#finalRoot .match-card {
+    border-left-color: gold;
+    border-right: 3px solid gold; /* Золота рамка для фіналу */
+    width: 300px;
+}
+
+/* Адаптація для Гранд Фіналу */
+#finalRoot {
+    align-items: center;
+    min-width: auto; /* Не розтягувати */
+}
