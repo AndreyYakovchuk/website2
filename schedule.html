@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Турнір CS2 - Сітка (16 команд)</title>
+    <title>Турнір CS2 - Double Elimination</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
         <div class="container">
             <div class="uni-support">За підтримки Херсонського державного університету</div>
             <h1>CS2 LEGACY CUP</h1>
-            <p>Призовий фонд: --- | Реєстрація відкрита!</p>
+            <p>Формат: Double Elimination (16 команд)</p>
         </div>
     </header>
 
@@ -32,11 +32,20 @@
 
     <main class="container">
         <section id="schedule" class="section">
-            <h2 style="text-align: center; margin-bottom: 40px;">ТУРНІРНА СІТКА (16 КОМАНД)</h2>
             
+            <h2 class="bracket-title">UPPER BRACKET (ВІННЕРИ)</h2>
             <div class="bracket-scroll">
-                <div id="bracketRoot" class="bracket-container">
-                    </div>
+                <div id="upperBracketRoot" class="bracket-container"></div>
+            </div>
+
+            <h2 class="bracket-title" style="color: #00d4ff; border-color: #00d4ff; margin-top: 50px;">LOWER BRACKET (ЛУЗЕРИ)</h2>
+            <div class="bracket-scroll">
+                <div id="lowerBracketRoot" class="bracket-container"></div>
+            </div>
+
+            <h2 class="bracket-title" style="color: gold; border-color: gold; margin-top: 50px;">GRAND FINAL</h2>
+            <div class="bracket-scroll">
+                <div id="finalRoot" class="bracket-container" style="justify-content: center;"></div>
             </div>
 
         </section>
@@ -49,102 +58,135 @@
     </footer>
 
     <script>
-        // === ДАНІ ТУРНІРУ (1/8 ФІНАЛУ) ===
-        // Всього 8 матчів. Змінюйте команди та рахунок тут.
-        // null - матч ще не зіграно.
-        
-        const roundOf16 = [
-            // Група A (Ліва сторона)
-            { t1: "null", s1: null, t2: "null", s2: null },   // Матч 1
-            { t1: "null", s1: null, t2: "null", s2: null }, // Матч 2
-            { t1: "null", s1: null, t2: "null", s2: null },    // Матч 3
-            { t1: "null", s1: null, t2: "null", s2: null },  // Матч 4
-            
-            // Група B (Права сторона)
-            { t1: "null", s1: null, t2: "null", s2: null },       // Матч 5
-            { t1: "null", s1: null, t2: "null", s2: null },// Матч 6
-            { t1: "null", s1: null, t2: "null", s2: null },     // Матч 7
-            { t1: "null", s1: null, t2: "null", s2: null }           // Матч 8
+        /* === ІНСТРУКЦІЯ ===
+           Заповнюйте дані вручну. В Double Elim автоматика дуже складна,
+           тому надійніше вписувати переможців та тих, хто впав у нижню сітку, самому.
+           
+           t1: Команда 1
+           s1: Рахунок 1
+           t2: Команда 2
+           s2: Рахунок 2
+        */
+
+        // 1. ВЕРХНЯЯ СЕТКА (Winners)
+        const upperBracketData = [
+            {
+                name: "1/8 ФІНАЛУ",
+                matches: [
+                    { t1: "NaVi Junior", s1: 13, t2: "Team Solid", s2: 5 },
+                    { t1: "B8 Esports", s1: null, t2: "Monte Gen", s2: null },
+                    { t1: "Passion UA", s1: null, t2: "Favbet", s2: null },
+                    { t1: "kONO.ECF", s1: null, t2: "Lazer Cats", s2: null },
+                    { t1: "IKLA", s1: null, t2: "Leogaming", s2: null },
+                    { t1: "The Witchers", s1: null, t2: "ROSOMAHA", s2: null },
+                    { t1: "Team Hryvnia", s1: null, t2: "L&G", s2: null },
+                    { t1: "ENEIDA", s1: null, t2: "KYIV", s2: null }
+                ]
+            },
+            {
+                name: "1/4 ФІНАЛУ",
+                matches: [
+                    { t1: "NaVi Junior", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
+                ]
+            },
+            {
+                name: "ПІВФІНАЛ",
+                matches: [
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
+                ]
+            },
+            {
+                name: "ФІНАЛ ВІННЕРІВ",
+                matches: [
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
+                ]
+            }
         ];
 
-        // --- ЛОГІКА ГЕНЕРАЦІЇ (АВТОМАТИЧНА) ---
-        function renderBracket() {
-            const root = document.getElementById('bracketRoot');
-            
-            // 1. Розраховуємо 1/4 (Переможці 1/8)
-            const quarterFinals = calculateNextRound(roundOf16);
+        // 2. НИЖНЯЯ СЕТКА (Losers)
+        const lowerBracketData = [
+            {
+                name: "ROUND 1 (Losers 1/8)",
+                matches: [
+                    { t1: "Team Solid", s1: null, t2: "Loser M2", s2: null },
+                    { t1: "Loser M3", s1: null, t2: "Loser M4", s2: null },
+                    { t1: "Loser M5", s1: null, t2: "Loser M6", s2: null },
+                    { t1: "Loser M7", s1: null, t2: "Loser M8", s2: null }
+                ]
+            },
+            {
+                name: "ROUND 2",
+                matches: [
+                    { t1: "Winner L1", s1: null, t2: "Loser QF1", s2: null },
+                    { t1: "Winner L2", s1: null, t2: "Loser QF2", s2: null },
+                    { t1: "Winner L3", s1: null, t2: "Loser QF3", s2: null },
+                    { t1: "Winner L4", s1: null, t2: "Loser QF4", s2: null }
+                ]
+            },
+            {
+                name: "ROUND 3",
+                matches: [
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null },
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
+                ]
+            },
+            {
+                name: "ROUND 4",
+                matches: [
+                    { t1: "TBA", s1: null, t2: "Loser SF1", s2: null },
+                    { t1: "TBA", s1: null, t2: "Loser SF2", s2: null }
+                ]
+            },
+            {
+                name: "ФІНАЛ ЛУЗЕРІВ",
+                matches: [
+                    { t1: "TBA", s1: null, t2: "TBA", s2: null }
+                ]
+            }
+        ];
 
-            // 2. Розраховуємо 1/2 (Переможці 1/4)
-            const semiFinals = calculateNextRound(quarterFinals);
+        // 3. ГРАНД ФИНАЛ
+        const grandFinalData = [
+            { t1: "Winner Upper", s1: null, t2: "Winner Lower", s2: null }
+        ];
 
-            // 3. Розраховуємо Фінал (Переможці 1/2)
-            const finals = calculateNextRound(semiFinals);
-
-            // 4. Визначаємо Чемпіона
-            const champion = getWinner(finals[0]);
-
-            // --- МАЛЮЄМО HTML ---
+        // --- ФУНКЦІЯ РЕНДЕРИНГУ ---
+        function renderSection(data, rootId, isFinal = false) {
+            const root = document.getElementById(rootId);
             let html = '';
 
-            // Колонка 1: 1/8 Фіналу
-            html += `<div class="round round-1"><h3 class="round-header">1/8 ФІНАЛУ</h3>`;
-            roundOf16.forEach(m => html += createMatchHTML(m));
-            html += `</div>`;
-
-            // Колонка 2: 1/4 Фіналу
-            html += `<div class="round round-2"><h3 class="round-header">1/4 ФІНАЛУ</h3>`;
-            quarterFinals.forEach(m => html += createMatchHTML(m));
-            html += `</div>`;
-
-            // Колонка 3: Півфінал
-            html += `<div class="round round-3"><h3 class="round-header">ПІВФІНАЛ</h3>`;
-            semiFinals.forEach(m => html += createMatchHTML(m));
-            html += `</div>`;
-
-            // Колонка 4: Фінал
-            html += `<div class="round round-4"><h3 class="round-header">ФІНАЛ</h3>`;
-            finals.forEach(m => html += createMatchHTML(m, true));
-            html += `</div>`;
-
-            // Колонка 5: Чемпіон
-            html += `<div class="round round-5"><h3 class="round-header">ЧЕМПІОН</h3>`;
-            html += `
-                <div class="champion-box">
+            if (isFinal) {
+                // Рендер Гранд Фіналу (один матч)
+                let m = data[0];
+                html += createMatchHTML(m, true);
+                
+                // Додаємо кубок
+                html += `
+                <div class="champion-box" style="margin-left: 50px;">
                     <i class="fa-solid fa-trophy"></i>
-                    <span>${champion !== "TBA" ? champion : "?"}</span>
+                    <span>?</span>
                 </div>`;
-            html += `</div>`;
-
+            } else {
+                // Рендер колонок (Upper/Lower)
+                data.forEach((round, index) => {
+                    html += `<div class="round round-${index}">
+                                <h3 class="round-header">${round.name}</h3>`;
+                    
+                    round.matches.forEach(m => {
+                        html += createMatchHTML(m);
+                    });
+                    
+                    html += `</div>`;
+                });
+            }
             root.innerHTML = html;
         }
 
-        // Функція для створення пар наступного раунду
-        function calculateNextRound(currentRound) {
-            const nextRound = [];
-            for (let i = 0; i < currentRound.length; i += 2) {
-                const match1 = currentRound[i];
-                const match2 = currentRound[i+1]; // Беремо сусідній матч
-                
-                // Якщо матчів непарна кількість (помилка), перериваємо
-                if (!match2) break;
-
-                const winner1 = getWinner(match1);
-                const winner2 = getWinner(match2);
-
-                nextRound.push({ t1: winner1, s1: null, t2: winner2, s2: null });
-            }
-            return nextRound;
-        }
-
-        // Функція визначення переможця
-        function getWinner(match) {
-            if (match.s1 === null || match.s2 === null) return "TBA";
-            // Якщо рахунок є, перевіряємо хто виграв
-            if (match.s1 > match.s2) return match.t1;
-            return match.t2;
-        }
-
-        // Генерація HTML однієї картки
+        // Генерація картки матчу
         function createMatchHTML(m, isFinal = false) {
             let c1 = '', c2 = '';
             
@@ -157,9 +199,9 @@
             let score2 = m.s2 !== null ? m.s2 : '-';
             let finalClass = isFinal ? 'final-match' : '';
 
-            // Якщо команди ще не визначені (TBA), робимо їх сірими
-            let t1Style = m.t1 === "TBA" ? 'color: #555;' : '';
-            let t2Style = m.t2 === "TBA" ? 'color: #555;' : '';
+            // TBA стиль
+            let t1Style = (m.t1.includes("TBA") || m.t1.includes("Loser") || m.t1.includes("Winner")) ? 'color: #666;' : '';
+            let t2Style = (m.t2.includes("TBA") || m.t2.includes("Loser") || m.t2.includes("Winner")) ? 'color: #666;' : '';
 
             return `
                 <div class="match-pair">
@@ -171,11 +213,11 @@
             `;
         }
 
-        // Запуск
-        renderBracket();
+        // ЗАПУСК
+        renderSection(upperBracketData, 'upperBracketRoot');
+        renderSection(lowerBracketData, 'lowerBracketRoot');
+        renderSection(grandFinalData, 'finalRoot', true);
+
     </script>
 </body>
 </html>
-
-
-
