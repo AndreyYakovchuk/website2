@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Турнір CS2 - Double Elimination</title>
+    <title>Турнір CS2 - Сітка</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -34,11 +34,13 @@
         <section id="schedule" class="section">
             
             <h2 class="bracket-title">UPPER BRACKET (ВІННЕРИ)</h2>
+            <p style="text-align: center; color: #888; margin-bottom: 30px;">Основна сітка. Поразка відправляє в нижню сітку.</p>
             <div class="bracket-scroll">
                 <div id="upperBracketRoot" class="bracket-container"></div>
             </div>
 
             <h2 class="bracket-title" style="color: #00d4ff; border-color: #00d4ff; margin-top: 50px;">LOWER BRACKET (ЛУЗЕРИ)</h2>
+            <p style="text-align: center; color: #888; margin-bottom: 30px;">Сітка другого шансу. Поразка тут означає виліт з турніру.</p>
             <div class="bracket-scroll">
                 <div id="lowerBracketRoot" class="bracket-container"></div>
             </div>
@@ -58,17 +60,7 @@
     </footer>
 
     <script>
-        /* === ІНСТРУКЦІЯ ===
-           Заповнюйте дані вручну. В Double Elim автоматика дуже складна,
-           тому надійніше вписувати переможців та тих, хто впав у нижню сітку, самому.
-           
-           t1: Команда 1
-           s1: Рахунок 1
-           t2: Команда 2
-           s2: Рахунок 2
-        */
-
-        // 1. ВЕРХНЯЯ СЕТКА (Winners)
+        // 1. ВЕРХНЯ СІТКА (16 команд)
         const upperBracketData = [
             {
                 name: "1/8 ФІНАЛУ",
@@ -107,10 +99,10 @@
             }
         ];
 
-        // 2. НИЖНЯЯ СЕТКА (Losers)
+        // 2. НИЖНЯ СІТКА
         const lowerBracketData = [
             {
-                name: "ROUND 1 (Losers 1/8)",
+                name: "ROUND 1 (Ті, хто програв 1/8)",
                 matches: [
                     { t1: "Team Solid", s1: null, t2: "Loser M2", s2: null },
                     { t1: "Loser M3", s1: null, t2: "Loser M4", s2: null },
@@ -160,46 +152,32 @@
             let html = '';
 
             if (isFinal) {
-                // Рендер Гранд Фіналу (один матч)
                 let m = data[0];
                 html += createMatchHTML(m, true);
-                
-                // Додаємо кубок
                 html += `
                 <div class="champion-box" style="margin-left: 50px;">
                     <i class="fa-solid fa-trophy"></i>
                     <span>?</span>
                 </div>`;
             } else {
-                // Рендер колонок (Upper/Lower)
                 data.forEach((round, index) => {
-                    html += `<div class="round round-${index}">
-                                <h3 class="round-header">${round.name}</h3>`;
-                    
-                    round.matches.forEach(m => {
-                        html += createMatchHTML(m);
-                    });
-                    
+                    html += `<div class="round round-${index}"><h3 class="round-header">${round.name}</h3>`;
+                    round.matches.forEach(m => html += createMatchHTML(m));
                     html += `</div>`;
                 });
             }
             root.innerHTML = html;
         }
 
-        // Генерація картки матчу
         function createMatchHTML(m, isFinal = false) {
             let c1 = '', c2 = '';
-            
             if (m.s1 !== null && m.s2 !== null) {
                 if (m.s1 > m.s2) { c1 = 'winner'; c2 = 'loser'; }
                 else { c1 = 'loser'; c2 = 'winner'; }
             }
-
             let score1 = m.s1 !== null ? m.s1 : '-';
             let score2 = m.s2 !== null ? m.s2 : '-';
             let finalClass = isFinal ? 'final-match' : '';
-
-            // TBA стиль
             let t1Style = (m.t1.includes("TBA") || m.t1.includes("Loser") || m.t1.includes("Winner")) ? 'color: #666;' : '';
             let t2Style = (m.t2.includes("TBA") || m.t2.includes("Loser") || m.t2.includes("Winner")) ? 'color: #666;' : '';
 
@@ -213,11 +191,9 @@
             `;
         }
 
-        // ЗАПУСК
         renderSection(upperBracketData, 'upperBracketRoot');
         renderSection(lowerBracketData, 'lowerBracketRoot');
         renderSection(grandFinalData, 'finalRoot', true);
-
     </script>
 </body>
 </html>
