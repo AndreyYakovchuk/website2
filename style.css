@@ -545,3 +545,53 @@ footer { text-align: center; padding: 20px 0; color: #888; font-size: 0.9em; bor
     align-items: center;
     min-width: auto; /* Не розтягувати */
 }
+
+/* ========================================= */
+/* 15. БОКС С ДАТОЙ (НОВОЕ) */
+/* ========================================= */
+.date-box {
+    margin-top: 30px;
+    background: rgba(0, 0, 0, 0.6); /* Полупрозрачный фон */
+    border: 2px solid var(--primary);
+    padding: 15px 40px;
+    display: inline-block;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.3); /* Свечение */
+    animation: pulse-date 2s infinite; /* Анимация пульсации */
+}
+
+.date-label {
+    font-size: 0.9em;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    font-family: var(--font-body);
+}
+
+.date-value {
+    font-family: var(--font-head);
+    font-size: 2.2em;
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 0 0 10px var(--primary);
+}
+
+.date-icon {
+    margin-right: 10px;
+    color: var(--primary);
+}
+
+/* Анимация пульсации рамки */
+@keyframes pulse-date {
+    0% { box-shadow: 0 0 10px rgba(255, 69, 0, 0.2); border-color: rgba(255, 69, 0, 0.7); }
+    50% { box-shadow: 0 0 30px rgba(255, 69, 0, 0.6); border-color: var(--primary); }
+    100% { box-shadow: 0 0 10px rgba(255, 69, 0, 0.2); border-color: rgba(255, 69, 0, 0.7); }
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 600px) {
+    .date-value { font-size: 1.8em; }
+    .date-box { padding: 10px 20px; width: 90%; }
+}
